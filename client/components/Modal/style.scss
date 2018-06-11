@@ -1,0 +1,53 @@
+@import "../../vars.scss";
+
+.Modal {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: $gray-5;
+  .modal-nav {
+    background: white;
+    position: relative;
+    height: 50px;
+    background: white;
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.10);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.10);
+    span {
+      color: $purple;
+      font-size: 26px;
+      margin-right: 15px;
+      font-weight: bold;
+    }
+  }
+  .modal-form {
+    padding: 15px;
+    .form {
+      text-align: right;
+      .inside {
+        margin-left: 2px;
+        margin-right: 2px;
+      }
+      .left-outside {
+        margin-right: 2px;
+      }
+      .right-outside {
+        margin-left: 2px;
+      }
+      .add-button, .minus-button {
+        width: 40px;
+      }
+      .space {
+        height: 10px;
+      }
+    }
+  }
+  .error-message {
+    text-align: center;
+    color: red;
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+}

@@ -1,0 +1,19 @@
+@import "../../vars.scss";
+
+#Login {
+  .logo {
+    width: 100vw;
+    height: 100vh;
+    img {
+      width: 100px;
+    }
+  }
+  .fb-login-button {
+    position: absolute;
+    bottom: 90px;
+    i {
+      font-size: 40px;
+      color: $purple;
+    }
+  }
+}

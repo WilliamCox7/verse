@@ -1,0 +1,27 @@
+@import "../../vars.scss";
+
+#Home {
+  height: calc(100vh - 63px);
+  .search-ref {
+    margin-bottom: 15px;
+    .selects {
+      width: 100%;
+      select {
+        margin: 2px;
+      }
+    }
+  }
+  .swipe-list {
+    margin-left: 12px;
+    height: calc(100vh - 175px);
+    -ms-touch-action: none;
+    touch-action: none;
+    .active {
+      color: $purple;
+    }
+    span {
+      margin-bottom: 8px;
+      color: $gray-3;
+    }
+  }
+}

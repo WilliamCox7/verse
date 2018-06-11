@@ -1,0 +1,140 @@
+@import "./vars.scss";
+
+html {
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background: $gray-5;
+}
+
+textarea {
+  font-family: 'Arial', sans-serif;
+}
+
+input:focus, textarea:focus, select:focus, button:focus {
+  outline: none;
+}
+
+pre {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.jc-c {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.jc-sb {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.jc-fe {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.ai-c {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.fd-c {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.fw-w {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+input {
+  width: 100%;
+  background: $gray-4;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  border: none;
+  padding: 12px;
+  color: $gray-1;
+  &::-webkit-input-placeholder {
+    color: $gray-2;
+  }
+  &:-ms-input-placeholder {
+    color: $gray-2;
+  }
+  &::-ms-input-placeholder {
+    color: $gray-2;
+  }
+  &::placeholder {
+    color: $gray-2;
+  }
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+  background: $gray-4;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 6px;
+  margin-bottom: 2px;
+  border: none;
+  padding: 12px;
+  color: $gray-1;
+  &::-webkit-input-placeholder {
+    color: $gray-2;
+  }
+  &:-ms-input-placeholder {
+    color: $gray-2;
+  }
+  &::-ms-input-placeholder {
+    color: $gray-2;
+  }
+  &::placeholder {
+    color: $gray-2;
+  }
+}
+
+select {
+  border-radius: 6px;
+  border: none;
+  padding: 12px;
+  color: $gray-1;
+  padding-right: 24px;
+  min-width: 45px;
+  background: url('./assets/select-arrow.svg') no-repeat right $gray-4;
+  -webkit-appearance: none;
+}
+
+button {
+  background: $gray-4;
+  border-radius: 6px;
+  border: none;
+  color: $gray-2;
+  padding: 12px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  &:hover {
+    color: $gray-1;
+  }
+}

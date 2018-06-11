@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="2373 256.205 78.5 77.795">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #8393ff;
+      }
+
+      .cls-2 {
+        fill: #5d5d5d;
+        font-size: 14px;
+        font-family: Georgia;
+      }
+    </style>
+  </defs>
+  <g id="Group_62" data-name="Group 62" transform="translate(2225)">
+    <g id="Group_27" data-name="Group 27" transform="translate(-141 430.505)">
+      <path id="Path_1" data-name="Path 1" class="cls-1" d="M289-77.8v4.947h78.5V-77.8Z" transform="translate(0 -43.452)"/>
+      <path id="Path_2" data-name="Path 2" class="cls-1" d="M307.8-125.65l29.025-48.65,28.97,48.65H347.435L336.825-143.3l-10.61,17.646Z" transform="translate(-8.465 0)"/>
+    </g>
+    <text id="Verse" class="cls-2" transform="translate(169 331)"><tspan x="0" y="0">Verse</tspan></text>
+  </g>
+</svg>
