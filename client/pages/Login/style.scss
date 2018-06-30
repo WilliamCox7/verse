@@ -1,19 +1,54 @@
 @import "../../vars.scss";
 
 #Login {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  .bubbles {
+    position: absolute;
+    top: -56px;
+    opacity: 0.6;
+    .bubble {
+      width: 192px;
+      height: 192px;
+      border-radius: 50%;
+      @media(max-width: 650px) {
+        width: 130px;
+        height: 130px;
+      }
+    }
+  }
   .logo {
     width: 100vw;
     height: 100vh;
+    background: white;
     img {
-      width: 100px;
+      width: 200px;
+      margin-bottom: 100px;
+      z-index: 1;
+      @media(max-width: 650px) {
+        width: 100px;
+      }
     }
   }
   .fb-login-button {
     position: absolute;
-    bottom: 90px;
+    bottom: 200px;
+    font-size: 28px;
+    color: $purple;
+    font-weight: bold;
+    @media(max-width: 650px) {
+      bottom: 120px;
+      font-size: 16px;
+    }
     i {
-      font-size: 40px;
+      font-size: 50px;
       color: $purple;
+      margin-right: 10px;
+      @media(max-width: 650px) {
+        font-size: 40px;
+      }
     }
   }
 }
