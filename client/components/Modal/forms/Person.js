@@ -15,13 +15,15 @@ class Person extends Pack.Component {
       mother: "",
       father: "",
       children: [""],
-      wives: [""]
+      wives: [""],
+      saveToScripture: true
     }
     this.save = this.save.bind(this);
     this.update = this.update.bind(this);
     this.updateArray = this.updateArray.bind(this);
     this.addToArray = this.addToArray.bind(this);
     this.removeFromArray = this.removeFromArray.bind(this);
+    this.updateCheckbox = this.updateCheckbox.bind(this);
   }
 
   update(e) {
@@ -45,6 +47,12 @@ class Person extends Pack.Component {
   removeFromArray(array, index) {
     let newState = Object.assign({}, this.state);
     newState[array].splice(index, 1);
+    this.setState(newState);
+  }
+
+  updateCheckbox(e) {
+    let newState = Object.assign({}, this.state);
+    newState[e.target.name] = !newState[e.target.name];
     this.setState(newState);
   }
 
@@ -96,7 +104,13 @@ class Person extends Pack.Component {
         <div className="children">{children}</div>
         <div className="space"></div>
         <div className="wives">{wives}</div>
-        <button onClick={this.save}>save</button>
+        <div className="flex jc-sb">
+          <label className="flex ai-c">
+            <input type="checkbox" checked={this.state.saveToScripture} name="saveToScripture" onChange={this.updateCheckbox} />
+            <h1>Save To Scripture</h1>
+          </label>
+          <button onClick={this.save}>save</button>
+        </div>
       </div>
     );
   }

@@ -17,6 +17,14 @@ class Verse extends Pack.Component {
   }
 
   render() {
+
+    let contextItem;
+    if (this.props.verse.items) {
+      this.props.verse.items.forEach((item) => {
+        if (item.hasOwnProperty('context')) contextItem = item;
+      });
+    }
+
     return (
       <div className="Verse">
         {this.props.verse ? (
@@ -29,10 +37,10 @@ class Verse extends Pack.Component {
               <i className="material-icons" style={!this.state.showInfo ? {transform: 'rotate(270deg)'} : null}
                 onClick={this.hideInfo}>arrow_drop_down</i>
             </div>
-            {this.props.verse.context ? (
+            {contextItem ? (
               <div className="context-wrapper flex">
-                <Comp.TextBox dir="right" text={this.props.verse.context} />
-                <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('context')}>
+                <Comp.TextBox dir="right" text={contextItem.context} />
+                <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('context', contextItem)}>
                   <div>
                     <Comp.Circle title="context" image="context" />
                   </div>

@@ -1,20 +1,23 @@
 import React from 'react';
 import * as Pack from '../../exports/packages';
 import * as Comp from '../../exports/components';
+import * as Meth from './methods';
 import { getAsset } from '../../modules';
 import './style.scss';
 
 class Menu extends Pack.Component {
+
+  constructor() {
+    super();
+    this.hasContext = this.hasContext.bind(this);
+  }
+
   render() {
-
-    let scripture = this.props.scripture;
-    let hasContext = scripture.verses[scripture.index] ? scripture.verses[scripture.index].context : null;
-
     return (
       <component id="Menu" style={this.props.show ? null : {display: "none"}} onClick={this.props.hideMenu}>
         <div className="menu-wrapper">
           <div className="button-container">
-            {!hasContext ? (
+            {!this.hasContext() ? (
               <div className="menu-button flex jc-c ai-c" onClick={() => this.props.openModal('context')}>
                 <Comp.Circle image="context" />
                 <h1>context</h1>
@@ -40,12 +43,10 @@ class Menu extends Pack.Component {
               <Comp.Circle image="ruler" />
               <h1>ruler</h1>
             </div>
-            {!hasContext ? (
-              <div className="menu-button flex jc-c ai-c" onClick={() => this.props.openModal('timeline')}>
-                <Comp.Circle image="timeline" />
-                <h1>timeline</h1>
-              </div>
-            ) : null}
+            <div className="menu-button flex jc-c ai-c" onClick={() => this.props.openModal('timeline')}>
+              <Comp.Circle image="timeline" />
+              <h1>timeline</h1>
+            </div>
             <div className="comment-button flex jc-c ai-c" onClick={() => this.props.openModal('comment')}>
               <img src={this.props.user.url} />
               <h1>comment</h1>
@@ -56,6 +57,8 @@ class Menu extends Pack.Component {
     );
   }
 }
+
+Menu.prototype.hasContext = Meth.hasContext;
 
 const mapStateToProps = (state) => {
   return {

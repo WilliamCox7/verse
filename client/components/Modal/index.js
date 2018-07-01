@@ -17,9 +17,8 @@ class Modal extends Pack.Component {
   }
 
   buildForm(type) {
-    let verse = this.props.scripture.verses[this.props.scripture.index];
     switch(type) {
-      case 'context': return <Context save={this.save} error={this.error} verse={verse} />;
+      case 'context': return <Context save={this.save} error={this.error} item={this.props.item} />;
       case 'person': return <Person save={this.save} error={this.error} />;
       case 'link': return <Link save={this.save} error={this.error} />;
       case 'military': return <SelectPerson save={this.save} type={type} error={this.error} />;
@@ -31,8 +30,6 @@ class Modal extends Pack.Component {
   }
 
   save(form) {
-    form.userId = this.props.user.userId;
-    form.refId = this.props.scripture.refId;
     let table = this.props.type === 'person' ? 'person' : 'additions';
     Pack.axios.post(`/upsert/${table}`, form).then((response) => {
       this.setState({error: ""}, () => {
@@ -52,8 +49,10 @@ class Modal extends Pack.Component {
 
     return (
       <div className="Modal">
-        <div className="modal-nav flex ai-c jc-fe">
-          <span onClick={this.props.closeModal}>X</span>
+        <div className="modal-nav">
+          <div className="modal-nav-wrapper flex ai-c jc-fe">
+            <span onClick={this.props.closeModal}>X</span>
+          </div>
         </div>
         <div className="modal-form">
           {form}
@@ -68,15 +67,8 @@ class Modal extends Pack.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    scripture: state.scripture
-  }
-}
-
 const mapDispatchToProps = {
   addAddition: Rdux.addAddition
 }
 
-export default Pack.connect(mapStateToProps, mapDispatchToProps)(Modal);
+export default Pack.connect(null, mapDispatchToProps)(Modal);

@@ -16,18 +16,24 @@ module.exports = (id, userId) => new Promise((resolve, reject) => {
 
         if (err) reject(err);
 
-        db.collection('additions').find({
+        db.collection('map').find({
           refId: ObjectId(id), userId: userId
-        }).toArray((err, additions) => {
+        }).toArray((err, map) => {
 
           if (err) reject(err);
 
-          if (additions.length > 0) {
-            resolve(Object.assign({}, additions[0], result[0]))
-          }
+          let promises = [];
+          map.forEach((item) => {
+            promises.push(db.collection(item.table).find({ _id: item.tableId }).toArray())
+          });
 
-          resolve(result[0]);
-          
+          Promise.all(promises)
+          .then((items) => resolve(Object.assign({}, {items: items[0]}, result[0])))
+          .catch((err) => {
+            console.log(err);
+            reject(err);
+          })
+
         });
 
       });

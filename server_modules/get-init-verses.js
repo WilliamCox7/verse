@@ -12,33 +12,45 @@ module.exports = (params) => new Promise((resolve, reject) => {
 
       if (err) reject(err);
 
+      let prevVerse, curVerse, nextVerse;
+      let prevPromises = [], curPromises = [], nextPromises = [];
+
       result.toArray((err, result) => err
         ? reject(err)
         : (
           Promise.all([
             db.collection('scriptures').find({ _id: result[0].prevId }).toArray(),
             db.collection('scriptures').find({ _id: result[0].nextId }).toArray()
-          ]).then((surrounding) => {
-            Promise.all([
-              db.collection('additions').find({ refId: surrounding[0][0]._id, userId: params.userId }).toArray(),
-              db.collection('additions').find({ refId: result[0]._id, userId: params.userId }).toArray(),
-              db.collection('additions').find({ refId: surrounding[1][0]._id, userId: params.userId }).toArray()
-            ]).then((additions) => {
-              additions.forEach((addition) => {
-                if (addition.length > 0) {
-                  delete addition[0]._id;
-                  delete addition[0].refId;
-                  delete addition[0].userId;
-                }
+          ])
+          .then((surrounding) => {
+            prevVerse = surrounding[0];
+            curVerse = result;
+            nextVerse = surrounding[1];
+            return Promise.all([
+              db.collection('map').find({ refId: prevVerse[0]._id, userId: params.userId }).toArray(),
+              db.collection('map').find({ refId: curVerse[0]._id, userId: params.userId }).toArray(),
+              db.collection('map').find({ refId: nextVerse[0]._id, userId: params.userId }).toArray()
+            ])
+          })
+          .then((allMaps) => {
+            allMaps.forEach((map, i) => {
+              map.forEach((item) => {
+                if (i === 0) prevPromises.push(db.collection(item.table).find({ _id: item.tableId }).toArray());
+                if (i === 1) curPromises.push(db.collection(item.table).find({ _id: item.tableId }).toArray());
+                if (i === 2) nextPromises.push(db.collection(item.table).find({ _id: item.tableId }).toArray());
               });
-              let prevVerse = Object.assign({}, additions[0][0], surrounding[0][0]);
-              let curVerse = Object.assign({}, additions[1][0], result[0]);
-              let nextVerse = Object.assign({}, additions[2][0], surrounding[1][0]);
-              resolve([prevVerse, curVerse, nextVerse]);
-            }).catch((err) => {
-              reject(err);
             });
-          }).catch((err) => {
+            return Promise.resolve();
+          })
+          .then(() => Promise.all(prevPromises))
+          .then((prevItems) => prevVerse = Object.assign({}, {items: prevItems[0]}, prevVerse[0]))
+          .then(() => Promise.all(curPromises))
+          .then((curItems) => curVerse = Object.assign({}, {items: curItems[0]}, curVerse[0]))
+          .then(() => Promise.all(nextPromises))
+          .then((nextItems) => nextVerse = Object.assign({}, {items: nextItems[0]}, nextVerse[0]))
+          .then(() => resolve([prevVerse, curVerse, nextVerse]))
+          .catch((err) => {
+            console.log(err);
             reject(err);
           })
         )

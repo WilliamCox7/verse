@@ -33,7 +33,7 @@ class Nav extends Pack.Component {
           </div>
           <Comp.Menu show={this.state.showMenu} hideMenu={this.hideMenu} openModal={this.openModal} />
           {this.props.nav.showModal ? (
-            <Comp.Modal type={this.props.nav.modalType} closeModal={this.props.closeModal} />
+            <Comp.Modal type={this.props.nav.modalType} closeModal={this.props.closeModal} item={this.props.nav.item} />
           ) : null}
         </div>
       </div>

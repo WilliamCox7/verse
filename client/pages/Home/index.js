@@ -44,6 +44,7 @@ class Home extends Pack.Component {
       this.props.setVerses(indices);
     });
   }
+  
   render() {
 
     let options = this.buildOptionsFor();

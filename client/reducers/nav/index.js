@@ -7,7 +7,8 @@ const initState = {
   index: 0,
   swipeIndex: 0,
   showModal: false,
-  modalType: undefined
+  modalType: undefined,
+  item: undefined
 }
 
 /**
@@ -32,6 +33,7 @@ export default function reducer(state=initState, action) {
     case OPEN:
       editState.showModal = true;
       editState.modalType = action.payload;
+      editState.item = action.item;
       return Object.assign({}, state, editState);
 
     case CLOSE:
@@ -58,10 +60,11 @@ export function setSwipeIndex(index) {
   }
 }
 
-export function openModal(type) {
+export function openModal(type, item) {
   return {
     type: OPEN,
-    payload: type
+    payload: type,
+    item: item
   }
 }
 
