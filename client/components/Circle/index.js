@@ -23,7 +23,7 @@ class Circle extends Pack.Component {
     let letter = this.props.image ? "" : this.getFirstLetter(this.props.letter);
 
     return (
-      <component id="Circle" className="flex jc-c ai-c">
+      <component className="Circle flex jc-c ai-c">
         {this.props.image ? (
           <img src={getAsset(this.props.image)} />
         ) : (

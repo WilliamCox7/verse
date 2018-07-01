@@ -24,18 +24,14 @@ class Verse extends Pack.Component {
             <div className="border-wrapper">
               <div className="content-wrapper flex">
                 <Comp.Circle title={this.props.verse.bookFul} letter={this.props.verse.bookFul} />
-                <div className="content">
-                  <h1>{this.props.verse.content}</h1>
-                </div>
+                <Comp.TextBox text={this.props.verse.content} dir="left" />
               </div>
               <i className="material-icons" style={!this.state.showInfo ? {transform: 'rotate(270deg)'} : null}
                 onClick={this.hideInfo}>arrow_drop_down</i>
             </div>
             {this.props.verse.context ? (
               <div className="context-wrapper flex">
-                <div className="verse-context">
-                  <h1>{this.props.verse.context}</h1>
-                </div>
+                <Comp.TextBox dir="right" text={this.props.verse.context} />
                 <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('context')}>
                   <div>
                     <Comp.Circle title="context" image="context" />

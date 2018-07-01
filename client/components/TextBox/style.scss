@@ -1,0 +1,34 @@
+@import "../../vars.scss";
+
+.TextBox {
+  padding: 7px;
+  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.10);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.10);
+  background: white;
+  color: $gray-1;
+  font-size: 12px;
+  width: 100%;
+  height: 100%;
+  line-height: 15px;
+  @media(min-width: 768px) {
+    padding: 11px;
+    h1 {
+      font-size: 16px;
+      line-height: 22px;
+    }
+  }
+}
+
+.TextBox.left {
+  margin-left: 8px;
+  @media(min-width: 768px) {
+    margin-left: 20px;
+  }
+}
+
+.TextBox.right {
+  margin-right: 8px;
+  @media(min-width: 768px) {
+    margin-right: 20px;
+  }
+}

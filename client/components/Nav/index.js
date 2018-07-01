@@ -20,7 +20,7 @@ class Nav extends Pack.Component {
   }
   render() {
     return (
-      <div className="Nav">
+      <div id="Nav">
         <div className="nav-wrapper flex jc-sb">
           <div onClick={this.updateIndices} className="reference flex ai-c">
             {this.props.scripture.abrString}
