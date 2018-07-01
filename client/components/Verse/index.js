@@ -23,7 +23,7 @@ class Verse extends Pack.Component {
           <div>
             <div className="border-wrapper">
               <div className="content-wrapper flex">
-                <Comp.Circle title={this.props.verse.bookAbr} />
+                <Comp.Circle title={this.props.verse.bookFul} letter={this.props.verse.bookFul} />
                 <div className="content">
                   <h1>{this.props.verse.content}</h1>
                 </div>
@@ -33,12 +33,14 @@ class Verse extends Pack.Component {
             </div>
             {this.props.verse.context ? (
               <div className="context-wrapper flex">
+                <div className="verse-context">
+                  <h1>{this.props.verse.context}</h1>
+                </div>
                 <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('context')}>
-                  <div className="verse-context">
-                    <h1>{this.props.verse.context}</h1>
+                  <div>
+                    <Comp.Circle title="context" image="context" />
                   </div>
                 </Pack.Holdable>
-                <Comp.Circle title="context" image="context" />
               </div>
             ) : null}
           </div>

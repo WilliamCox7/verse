@@ -1,3 +1,5 @@
+import * as Pack from '../../../exports/packages';
+
 export default function changeIndex(index) {
   let verses = this.props.scripture.verses;
   if (!verses[index-1]) {

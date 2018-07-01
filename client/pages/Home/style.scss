@@ -2,12 +2,18 @@
 
 #Home {
   height: calc(100vh - 63px);
+  @media(min-width: 768px) {
+    height: calc(100vh - 70px);
+  }
   .search-ref {
     margin-bottom: 15px;
     .selects {
       width: 100%;
       select {
         margin: 2px;
+        @media(min-width: 768px) {
+          font-size: 13px;
+        }
       }
     }
   }
@@ -22,6 +28,10 @@
     span {
       margin-bottom: 8px;
       color: $gray-3;
+      @media(min-width: 768px) {
+        font-size: 18px;
+        margin-bottom: 11px;
+      }
     }
   }
 }

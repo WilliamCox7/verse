@@ -27,7 +27,7 @@ class Login extends Pack.Component {
 
   render() {
 
-    let bubbleWidth = this.state.screenW < 650 ? 130 : 192;
+    let bubbleWidth = this.state.screenW < 768 ? 130 : 192;
     let columns = Math.round(this.state.screenW / bubbleWidth) + 1;
     let rows = Math.round(this.state.screenH / bubbleWidth) + 1;
     let numOfBubbles = columns * rows;

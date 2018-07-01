@@ -48,10 +48,15 @@ class Home extends Pack.Component {
 
     let options = this.buildOptionsFor();
     let updIndex = this.props.nav.index;
+    let style = screen.width < 768 ? ({
+      margin: '13px'
+    }) : ({
+      margin: '20px', maxWidth: '744px', width: '100%'
+    });
 
     return (
-      <page id="Home">
-        <Pack.SwipeableViews style={{margin: '13px'}} index={this.props.nav.index} onChangeIndex={(index) => this.setVerse(options, index)}>
+      <page id="Home" className="flex jc-c">
+        <Pack.SwipeableViews style={style} index={this.props.nav.index} onChangeIndex={(index) => this.setVerse(options, index)}>
           <div>
             <div className="search-ref flex jc-sb">
               <div className="selects flex">

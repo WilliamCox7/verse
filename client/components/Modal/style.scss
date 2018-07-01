@@ -26,6 +26,11 @@
     padding: 15px;
     .form {
       text-align: right;
+      textarea, button {
+        @media(min-width: 768px) {
+          font-size: 16px;
+        }
+      }
       .inside {
         margin-left: 2px;
         margin-right: 2px;

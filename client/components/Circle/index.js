@@ -4,15 +4,32 @@ import { getAsset } from '../../modules';
 import './style.scss';
 
 class Circle extends Pack.Component {
+
+  getFirstWord(title) {
+    let parts = title.split(" ");
+    let firstWord = parts.find((part) => isNaN(part));
+    return firstWord;
+  }
+
+  getFirstLetter(title) {
+    let parts = title.split(" ");
+    let firstWord = parts.find((part) => isNaN(part));
+    return firstWord[0];
+  }
+
   render() {
+
+    let title = this.props.title ? this.getFirstWord(this.props.title) : "";
+    let letter = this.props.image ? "" : this.getFirstLetter(this.props.letter);
+
     return (
-      <component id="Circle" className="flex jc-c ai-c" style={this.props.image ? {padding: "15px"} : null}>
+      <component id="Circle" className="flex jc-c ai-c">
         {this.props.image ? (
           <img src={getAsset(this.props.image)} />
         ) : (
-          <span>{this.props.title[0]}</span>
+          <span>{letter}</span>
         )}
-        <div className="title">{this.props.title}</div>
+        <div className="title">{title}</div>
       </component>
     );
   }

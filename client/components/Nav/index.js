@@ -20,25 +20,22 @@ class Nav extends Pack.Component {
   }
   render() {
     return (
-      <div className="Nav flex jc-sb">
-        <div onClick={this.updateIndices} className="reference flex ai-c">
-          {this.props.scripture.abrString}
-        </div>
-        <div className="logo flex jc-c ai-c">
-          <img src={getAsset('logo-small', 'png')} />
-        </div>
-        <div className="settings flex jc-fe ai-c">
-          <i className="material-icons">settings</i>
-        </div>
-        {this.props.nav.index > 0 && !this.state.showMenu ? (
-          <div onTouchEnd={this.showMenu} id="nav-add-section" className="add-section flex jc-c ai-c">
-            <h1>+</h1>
+      <div className="Nav">
+        <div className="nav-wrapper flex jc-sb">
+          <div onClick={this.updateIndices} className="reference flex ai-c">
+            {this.props.scripture.abrString}
           </div>
-        ) : null}
-        <Comp.Menu show={this.state.showMenu} hideMenu={this.hideMenu} openModal={this.openModal} />
-        {this.props.nav.showModal ? (
-          <Comp.Modal type={this.props.nav.modalType} closeModal={this.props.closeModal} />
-        ) : null}
+          <div className="logo flex jc-c ai-c">
+            <img src={getAsset('logo-small', 'png')} />
+          </div>
+          <div className="add flex jc-fe ai-c" onClick={this.showMenu}>
+            <i className="material-icons">add</i>
+          </div>
+          <Comp.Menu show={this.state.showMenu} hideMenu={this.hideMenu} openModal={this.openModal} />
+          {this.props.nav.showModal ? (
+            <Comp.Modal type={this.props.nav.modalType} closeModal={this.props.closeModal} />
+          ) : null}
+        </div>
       </div>
     );
   }

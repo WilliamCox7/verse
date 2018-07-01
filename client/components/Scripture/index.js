@@ -9,12 +9,7 @@ class Scripture extends Pack.Component {
 
   constructor() {
     super();
-    this.state = {
-      y: undefined
-    }
     this.changeIndex = this.changeIndex.bind(this);
-    this.saveY = this.saveY.bind(this);
-    this.toggleAddSection = this.toggleAddSection.bind(this);
   }
 
   render() {
@@ -24,7 +19,7 @@ class Scripture extends Pack.Component {
     });
 
     return (
-      <div className="Scripture" onTouchStart={this.saveY} onTouchMove={this.toggleAddSection}>
+      <div className="Scripture">
         {verses.length > 100 ? (
           <Pack.SwipeableViews children={verses} index={this.props.scripture.index}
             onChangeIndex={this.changeIndex} style={{'height': '100%'}}>
@@ -36,8 +31,6 @@ class Scripture extends Pack.Component {
 }
 
 Scripture.prototype.changeIndex = Meth.changeIndex;
-Scripture.prototype.saveY = Meth.saveY;
-Scripture.prototype.toggleAddSection = Meth.toggleAddSection;
 
 const mapStateToProps = (state) => {
   return {
