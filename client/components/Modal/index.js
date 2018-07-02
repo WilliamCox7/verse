@@ -19,13 +19,13 @@ class Modal extends Pack.Component {
   buildForm(type) {
     switch(type) {
       case 'context': return <Context save={this.save} error={this.error} item={this.props.item} />;
-      case 'person': return <Person save={this.save} error={this.error} />;
-      case 'link': return <Link save={this.save} error={this.error} />;
-      case 'military': return <SelectPerson save={this.save} type={type} error={this.error} />;
-      case 'prophet': return <SelectPerson save={this.save} type={type} error={this.error} />;
-      case 'ruler': return <SelectPerson save={this.save} type={type} error={this.error} />;
-      case 'timeline': return <Timeline save={this.save} error={this.error} />;
-      case 'comment': return <Comment save={this.save} error={this.error} />;
+      case 'person': return <Person save={this.save} error={this.error} item={this.props.item} />;
+      case 'link': return <Link save={this.save} error={this.error} item={this.props.item} />;
+      case 'military': return <SelectPerson save={this.save} type={type} error={this.error} item={this.props.item} />;
+      case 'prophet': return <SelectPerson save={this.save} type={type} error={this.error} item={this.props.item} />;
+      case 'ruler': return <SelectPerson save={this.save} type={type} error={this.error} item={this.props.item} />;
+      case 'timeline': return <Timeline save={this.save} error={this.error} item={this.props.item} />;
+      case 'comment': return <Comment save={this.save} error={this.error} item={this.props.item} />;
     }
   }
 

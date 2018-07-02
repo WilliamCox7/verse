@@ -18,9 +18,10 @@ class Verse extends Pack.Component {
 
   render() {
 
-    let contextItem;
+    let contextItem, personItem;
     if (this.props.items) {
       contextItem = this.props.items.find((item) => item.hasOwnProperty('context'))
+      personItem = this.props.items.find((item) => item.hasOwnProperty('name'));
     }
 
     return (
@@ -36,11 +37,21 @@ class Verse extends Pack.Component {
                 onClick={this.hideInfo}>arrow_drop_down</i>
             </div>
             {contextItem ? (
-              <div className="context-wrapper flex">
+              <div className="item-wrapper flex">
                 <Comp.TextBox dir="right" text={contextItem.context} />
                 <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('context')}>
                   <div>
                     <Comp.Circle title="context" image="context" />
+                  </div>
+                </Pack.Holdable>
+              </div>
+            ) : null}
+            {personItem ? (
+              <div className="item-wrapper flex fd-rr">
+                <Comp.TextBox dir="left" text={personItem.name} />
+                <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('person', 'name')}>
+                  <div>
+                    <Comp.Circle title="person" image="geneology" />
                   </div>
                 </Pack.Holdable>
               </div>

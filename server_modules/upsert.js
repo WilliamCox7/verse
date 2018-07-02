@@ -9,6 +9,7 @@ module.exports = (body, table) => new Promise((resolve, reject) => {
     let refId = ObjectId(body.refId);
     let userId = body.userId;
     let id = body.id ? ObjectId(body.id) : null;
+    let dontSaveToScripture = body.dontSaveToScripture;
     delete body.refId;
     delete body.userId;
     delete body.id;
@@ -29,15 +30,19 @@ module.exports = (body, table) => new Promise((resolve, reject) => {
           if (err) reject(err);
           if (result.ops[0]._id) {
             let insert = result;
-            db.collection('map').insert({
-              refId: refId,
-              userId: userId,
-              table: table,
-              tableId: result.ops[0]._id
-            }, (err, result) => {
-              if (err) reject(err);
+            if (!dontSaveToScripture) {
+              db.collection('map').insert({
+                refId: refId,
+                userId: userId,
+                table: table,
+                tableId: result.ops[0]._id
+              }, (err, result) => {
+                if (err) reject(err);
+                resolve(insert);
+              });
+            } else {
               resolve(insert);
-            });
+            }
           } else {
             resolve(result);
           }

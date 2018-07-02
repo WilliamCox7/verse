@@ -3,20 +3,22 @@ import * as Pack from '../../../exports/packages';
 
 class Person extends Pack.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      name: "",
-      start: undefined,
-      startExt: "",
-      end: undefined,
-      endExt: "",
-      content: "",
-      mother: "",
-      father: "",
-      children: [""],
-      wives: [""],
-      saveToScripture: true
+      name: props.item && props.item.name ? props.item.name : "",
+      start: props.item && props.item.start ? props.item.start :  undefined,
+      startExt: props.item && props.item.startExt ? props.item.startExt :  "",
+      end: props.item && props.item.end ? props.item.end :  undefined,
+      endExt: props.item && props.item.endExt ? props.item.endExt :  "",
+      content: props.item && props.item.content ? props.item.content :  "",
+      mother: props.item && props.item.mother ? props.item.mother :  "",
+      father: props.item && props.item.father ? props.item.father :  "",
+      children: props.item && props.item.children ? props.item.children :  [""],
+      wives: props.item && props.item.wives ? props.item.wives :  [""],
+      dontSaveToScripture: props.item ? props.item.dontSaveToScripture :  false,
+      showCheckbox: props.item ? false : true,
+      id: props.item && props.item._id ? props.item._id : ""
     }
     this.save = this.save.bind(this);
     this.update = this.update.bind(this);
@@ -57,7 +59,9 @@ class Person extends Pack.Component {
   }
 
   save() {
-    this.props.save(this.state, 'person');
+    let saveState = Object.assign({}, this.state);
+    delete saveState.showCheckbox;
+    this.props.save(saveState, 'person');
   }
 
   render() {
@@ -104,11 +108,13 @@ class Person extends Pack.Component {
         <div className="children">{children}</div>
         <div className="space"></div>
         <div className="wives">{wives}</div>
-        <div className="flex jc-sb">
-          <label className="flex ai-c">
-            <input type="checkbox" checked={this.state.saveToScripture} name="saveToScripture" onChange={this.updateCheckbox} />
-            <h1>Save To Scripture</h1>
-          </label>
+        <div className={this.state.showCheckbox ? "flex jc-sb" : "flex jc-fe"}>
+          {this.state.showCheckbox ? (
+            <label className="flex ai-c">
+              <input type="checkbox" checked={this.state.dontSaveToScripture} name="dontSaveToScripture" onChange={this.updateCheckbox} />
+              <h1>Don't Save To Scripture</h1>
+            </label>
+          ) : null}
           <button onClick={this.save}>save</button>
         </div>
       </div>

@@ -61,6 +61,13 @@ pre {
           flex-direction: column;
 }
 
+.fd-rr {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
 .fw-w {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;

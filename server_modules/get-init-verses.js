@@ -43,11 +43,11 @@ module.exports = (params) => new Promise((resolve, reject) => {
             return Promise.resolve();
           })
           .then(() => Promise.all(prevPromises))
-          .then((prevItems) => prevVerse = Object.assign({}, {items: prevItems[0]}, prevVerse[0]))
+          .then((prevItems) => prevVerse = Object.assign({}, {items: prevItems.reduce((acc, val) => acc.concat(val), [])}, prevVerse[0]))
           .then(() => Promise.all(curPromises))
-          .then((curItems) => curVerse = Object.assign({}, {items: curItems[0]}, curVerse[0]))
+          .then((curItems) => curVerse = Object.assign({}, {items: curItems.reduce((acc, val) => acc.concat(val), [])}, curVerse[0]))
           .then(() => Promise.all(nextPromises))
-          .then((nextItems) => nextVerse = Object.assign({}, {items: nextItems[0]}, nextVerse[0]))
+          .then((nextItems) => nextVerse = Object.assign({}, {items: nextItems.reduce((acc, val) => acc.concat(val), [])}, nextVerse[0]))
           .then(() => resolve([prevVerse, curVerse, nextVerse]))
           .catch((err) => {
             console.log(err);

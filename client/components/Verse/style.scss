@@ -28,8 +28,11 @@
       }
     }
   }
-  .context-wrapper {
+  .item-wrapper {
     min-height: 80px;
+    @media(min-width: 768px) {
+      min-height: 100px;
+    }
     .TextBox.left {
       margin-right: 53px;
       @media(min-width: 768px) {
