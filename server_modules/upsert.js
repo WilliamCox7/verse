@@ -4,20 +4,51 @@ const mongoURI = require('./get-mongo-uri')();
 
 module.exports = (body, table) => new Promise((resolve, reject) => {
 
-  body.refId = ObjectId(body.refId);
+  try {
 
-  mongoClient.connect(mongoURI, (err, db) => {
+    let refId = ObjectId(body.refId);
+    let userId = body.userId;
+    let id = body.id ? ObjectId(body.id) : null;
+    delete body.refId;
+    delete body.userId;
+    delete body.id;
 
-    db.collection(table).update({
-      userId: body.userId, refId: body.refId
-    }, body, {
-      upsert: true
-    }, (err, result) => {
+    mongoClient.connect(mongoURI, (err, db) => {
 
-      err ? reject(err) : resolve(result);
+      if (id) {
+        db.collection(table).update({
+          _id: id
+        }, body, {
+          upsert: true
+        }, (err, result) => {
+          if (err) reject(err);
+          resolve(result);
+        });
+      } else {
+        db.collection(table).insert(body, (err, result) => {
+          if (err) reject(err);
+          if (result.ops[0]._id) {
+            let insert = result;
+            db.collection('map').insert({
+              refId: refId,
+              userId: userId,
+              table: table,
+              tableId: result.ops[0]._id
+            }, (err, result) => {
+              if (err) reject(err);
+              resolve(insert);
+            });
+          } else {
+            resolve(result);
+          }
+        });
+      }
 
     });
 
-  });
+  } catch(err) {
+    console.log(err);
+    reject(err);
+  }
 
 });

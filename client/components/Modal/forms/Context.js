@@ -6,8 +6,8 @@ class Context extends Pack.Component {
   constructor(props) {
     super(props);
     this.state = {
-      context: props.item.context ? props.item.context : "",
-      id: props.item._id ? props.item._id : ""
+      context: props.item && props.item.context ? props.item.context : "",
+      id: props.item && props.item._id ? props.item._id : ""
     }
     this.save = this.save.bind(this);
     this.update = this.update.bind(this);
@@ -28,7 +28,7 @@ class Context extends Pack.Component {
 
   save() {
     if (this.state.context) {
-      this.props.save(this.state);
+      this.props.save(this.state, 'context');
     } else {
       this.props.error("Missing Context");
     }

@@ -2,6 +2,7 @@ const SET = 'nav/SET';
 const SET_SWI = 'nav/SET_SWI';
 const OPEN = 'nav/OPEN';
 const CLOSE = 'nav/CLOSE';
+const SET_ITEM = 'nav/SET_ITEM';
 
 const initState = {
   index: 0,
@@ -41,6 +42,10 @@ export default function reducer(state=initState, action) {
       editState.modalType = undefined;
       return Object.assign({}, state, editState);
 
+    case SET_ITEM:
+      editState.item = action.payload;
+      return Object.assign({}, state, editState);
+
     default: return state;
 
   }
@@ -71,5 +76,12 @@ export function openModal(type, item) {
 export function closeModal() {
   return {
     type: CLOSE
+  }
+}
+
+export function setItem(item) {
+  return {
+    type: SET_ITEM,
+    payload: item
   }
 }

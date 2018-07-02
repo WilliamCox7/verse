@@ -20,7 +20,7 @@ class Link extends Pack.Component {
   }
 
   save() {
-    this.props.save(this.state);
+    this.props.save(this.state, 'link');
   }
 
   render() {

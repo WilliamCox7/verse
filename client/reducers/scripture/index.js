@@ -4,6 +4,7 @@ const ADD_END = 'scripture/ADD_END';
 const ADD_STT = 'scripture/ADD_STT';
 const SET_REF = 'scripture/SET_REF';
 const ADD_ADD = 'scripture/ADD_ADD';
+const UPD_ADD = 'scripture/UPD_ADD';
 const SET_IND = 'scripture/SET_IND';
 
 const initState = {
@@ -46,7 +47,16 @@ export default function reducer(state=initState, action) {
       return Object.assign({}, state, editState);
 
     case ADD_ADD:
-      editState.verses[editState.index] = Object.assign({}, editState.verses[editState.index], p);
+      if (!editState.verses[editState.index].items) editState.verses[editState.index].items = [];
+      editState.verses[editState.index].items.push(p);
+      return Object.assign({}, state, editState);
+
+    case UPD_ADD:
+      let items = editState.verses[editState.index].items;
+      editState.verses[editState.index].items = items.map((item) => {
+        if (item._id === p.id) item = p;
+        return item;
+      });
       return Object.assign({}, state, editState);
 
     case SET_IND:
@@ -111,6 +121,13 @@ export function setReference(verse) {
 export function addAddition(form) {
   return {
     type: ADD_ADD,
+    payload: form
+  }
+}
+
+export function updAddition(form) {
+  return {
+    type: UPD_ADD,
     payload: form
   }
 }

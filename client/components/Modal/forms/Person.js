@@ -57,7 +57,7 @@ class Person extends Pack.Component {
   }
 
   save() {
-    this.props.save(this.state);
+    this.props.save(this.state, 'person');
   }
 
   render() {

@@ -19,10 +19,8 @@ class Verse extends Pack.Component {
   render() {
 
     let contextItem;
-    if (this.props.verse.items) {
-      this.props.verse.items.forEach((item) => {
-        if (item.hasOwnProperty('context')) contextItem = item;
-      });
+    if (this.props.items) {
+      contextItem = this.props.items.find((item) => item.hasOwnProperty('context'))
     }
 
     return (
@@ -40,7 +38,7 @@ class Verse extends Pack.Component {
             {contextItem ? (
               <div className="context-wrapper flex">
                 <Comp.TextBox dir="right" text={contextItem.context} />
-                <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('context', contextItem)}>
+                <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('context')}>
                   <div>
                     <Comp.Circle title="context" image="context" />
                   </div>

@@ -19,7 +19,7 @@ class Comment extends Pack.Component {
   }
 
   save() {
-    this.props.save(this.state);
+    this.props.save(this.state, 'comment');
   }
 
   render() {

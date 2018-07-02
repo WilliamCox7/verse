@@ -29,12 +29,18 @@ class Modal extends Pack.Component {
     }
   }
 
-  save(form) {
-    let table = this.props.type === 'person' ? 'person' : 'additions';
+  save(form, table) {
+    form.userId = this.props.user.userId;
+    form.refId = this.props.scripture.refId;
     Pack.axios.post(`/upsert/${table}`, form).then((response) => {
       this.setState({error: ""}, () => {
         this.props.closeModal();
-        this.props.addAddition(form);
+        if (response.data.nModified) {
+          this.props.setItem(form);
+          this.props.updAddition(form);
+        } else {
+          this.props.addAddition(response.data.ops[0]);
+        }
       });
     });
   }
@@ -67,8 +73,17 @@ class Modal extends Pack.Component {
   }
 }
 
-const mapDispatchToProps = {
-  addAddition: Rdux.addAddition
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    scripture: state.scripture
+  }
 }
 
-export default Pack.connect(null, mapDispatchToProps)(Modal);
+const mapDispatchToProps = {
+  addAddition: Rdux.addAddition,
+  updAddition: Rdux.updAddition,
+  setItem: Rdux.setItem
+}
+
+export default Pack.connect(mapStateToProps, mapDispatchToProps)(Modal);

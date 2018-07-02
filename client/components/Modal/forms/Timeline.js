@@ -22,7 +22,7 @@ class Timeline extends Pack.Component {
   }
 
   save() {
-    this.props.save(this.state);
+    this.props.save(this.state, 'timeline');
   }
 
   render() {

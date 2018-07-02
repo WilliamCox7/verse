@@ -15,7 +15,7 @@ class Scripture extends Pack.Component {
   render() {
 
     let verses = this.props.scripture.verses.map((verse, i) => {
-      return <Comp.Verse verse={verse} key={i} />;
+      return <Comp.Verse verse={verse} items={verse.items} key={i} />;
     });
 
     return (
