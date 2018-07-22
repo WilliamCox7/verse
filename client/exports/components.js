@@ -5,9 +5,11 @@ import Modal from '../components/Modal';
 import Nav from '../components/Nav';
 import Scripture from '../components/Scripture';
 import TextBox from '../components/TextBox';
+import TextDropDown from '../components/TextDropDown';
 import Verse from '../components/Verse';
 
 export {
   Circle, HandleFbRedirect, Menu, Modal,
-  Nav, Scripture, TextBox, Verse
+  Nav, Scripture, TextBox, TextDropDown,
+  Verse
 }

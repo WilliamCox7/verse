@@ -48,7 +48,8 @@ class Verse extends Pack.Component {
             ) : null}
             {personItem ? (
               <div className="item-wrapper flex fd-rr">
-                <Comp.TextBox dir="left" text={personItem.name} />
+                <Comp.TextDropDown dir="left" titleLeft={personItem.name} content={personItem.content}
+                  titleRight={`${personItem.start} ${personItem.startExt}`} />
                 <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('person', 'name')}>
                   <div>
                     <Comp.Circle title="person" image="geneology" />
