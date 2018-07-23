@@ -51,9 +51,9 @@ class Home extends Pack.Component {
     let options = this.buildOptionsFor();
     let updIndex = this.props.nav.index;
     let style = screen.width < 768 ? ({
-      margin: '13px'
+      padding: '13px 5px'
     }) : ({
-      margin: '20px', maxWidth: '744px', width: '100%'
+      padding: '20px 5px', maxWidth: '744px', width: '100%'
     });
 
     return (

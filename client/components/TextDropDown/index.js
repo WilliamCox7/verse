@@ -5,10 +5,10 @@ import './style.scss';
 
 class TextDropDown extends Pack.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      showInfo: false
+      showInfo: props.show
     }
     this.toggleInfo = this.toggleInfo.bind(this);
   }
@@ -16,10 +16,11 @@ class TextDropDown extends Pack.Component {
   render() {
 
     let className = "TextDropDown " + this.props.dir;
+    let style = {marginBottom: '5px'};
 
     return (
       <component className={className}>
-        <div className="text flex jc-sb" onClick={this.toggleInfo}>
+        <div className="text flex jc-sb" onClick={this.toggleInfo} style={this.state.showInfo ? null : style}>
           <h1>{this.props.titleLeft}</h1>
           <h1>{this.props.titleRight}</h1>
         </div>

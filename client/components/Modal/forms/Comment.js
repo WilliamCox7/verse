@@ -3,10 +3,12 @@ import * as Pack from '../../../exports/packages';
 
 class Comment extends Pack.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      comment: ""
+      comment: props.item && props.item.comment ? props.item.comment : "",
+      _id: props.item && props.item._id ? props.item._id : "",
+      type: props.item && props.item.type ? props.item.type : 'comment'
     }
     this.save = this.save.bind(this);
     this.update = this.update.bind(this);
@@ -19,7 +21,11 @@ class Comment extends Pack.Component {
   }
 
   save() {
-    this.props.save(this.state, 'comment');
+    if (this.state.comment) {
+      this.props.save(this.state, 'comment');
+    } else {
+      this.props.error("Missing Comment");
+    }
   }
 
   render() {

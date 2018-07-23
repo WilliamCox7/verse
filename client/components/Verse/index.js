@@ -18,24 +18,25 @@ class Verse extends Pack.Component {
 
   render() {
     let dirSwitch = false, className;
-    let contextItem, linkItem, prophetItem, rulerItem, militaryItem, personItem, timelineItem;
+    let contextItem, linkItems, prophetItems, rulerItems, militaryItems, personItems, timelineItem, commentItems;
 
     let items = this.props.verse.items;
     if (items) {
       contextItem = items.find((item) => item.type === 'context');
-      linkItem = items.find((item) => item.type === 'link');
-      prophetItem = items.find((item) => item.type === 'prophet');
-      rulerItem = items.find((item) => item.type === 'ruler');
-      militaryItem = items.find((item) => item.type === 'military');
-      personItem = items.find((item) => item.type === 'person');
+      linkItems = items.filter((item) => item.type === 'link');
+      prophetItems = items.filter((item) => item.type === 'prophet');
+      rulerItems = items.filter((item) => item.type === 'ruler');
+      militaryItems = items.filter((item) => item.type === 'military');
+      personItems = items.filter((item) => item.type === 'person');
       timelineItem = items.find((item) => item.type === 'timeline');
+      commentItems = items.filter((item) => item.type === 'comment');
     }
 
-    let context, link, prophet, ruler, military, person, timeline;
+    let context, link, prophet, ruler, military, person, timeline, comment;
 
     if (contextItem) {
       dirSwitch = !dirSwitch;
-      className = `item-wrapper flex ${dirSwitch ? null : 'fd-rr'}`;
+      className = `item-wrapper single flex ${dirSwitch ? null : 'fd-rr'}`;
       context = (
         <div className={className}>
           <Comp.TextBox dir={dirSwitch ? 'right' : 'left'} text={contextItem.context} />
@@ -48,13 +49,20 @@ class Verse extends Pack.Component {
       );
     }
 
-    if (linkItem) {
+    if (linkItems && linkItems.length) {
       dirSwitch = !dirSwitch;
       className = `item-wrapper flex ${dirSwitch ? null : 'fd-rr'}`;
+      items = linkItems.map((linkItem, i) => {
+        return (
+          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={linkItem.title} content={linkItem.content}
+            titleRight={linkItem.reference} show={i === 0} key={i} />
+        );
+      })
       link = (
         <div className={className}>
-          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={linkItem.title} content={linkItem.content}
-            titleRight={linkItem.reference} />
+          <div className={`items-wrapper ${dirSwitch ? 'right' : 'left'}`}>
+            {items}
+          </div>
           <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('link')}>
             <div>
               <Comp.Circle title="link" image="link" />
@@ -64,13 +72,20 @@ class Verse extends Pack.Component {
       );
     }
 
-    if (prophetItem) {
+    if (prophetItems && prophetItems.length) {
       dirSwitch = !dirSwitch;
       className = `item-wrapper flex ${dirSwitch ? null : 'fd-rr'}`;
+      items = prophetItems.map((prophetItem, i) => {
+        return (
+          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={prophetItem.name} content={prophetItem.content}
+            titleRight={`${prophetItem.start} ${prophetItem.startExt}`} show={i === 0} key={i} />
+        );
+      })
       prophet = (
         <div className={className}>
-          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={prophetItem.name} content={prophetItem.content}
-            titleRight={`${prophetItem.start} ${prophetItem.startExt}`} />
+          <div className={`items-wrapper ${dirSwitch ? 'right' : 'left'}`}>
+            {items}
+          </div>
           <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('prophet')}>
             <div>
               <Comp.Circle title="prophet" image="prophet" />
@@ -80,13 +95,20 @@ class Verse extends Pack.Component {
       );
     }
 
-    if (rulerItem) {
+    if (rulerItems && rulerItems.length) {
       dirSwitch = !dirSwitch;
       className = `item-wrapper flex ${dirSwitch ? null : 'fd-rr'}`;
+      items = rulerItems.map((rulerItem, i) => {
+        return (
+          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={rulerItem.name} content={rulerItem.content}
+            titleRight={`${rulerItem.start} ${rulerItem.startExt}`} show={i === 0} key={i} />
+        );
+      })
       ruler = (
         <div className={className}>
-          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={rulerItem.name} content={rulerItem.content}
-            titleRight={`${rulerItem.start} ${rulerItem.startExt}`} />
+          <div className={`items-wrapper ${dirSwitch ? 'right' : 'left'}`}>
+            {items}
+          </div>
           <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('ruler')}>
             <div>
               <Comp.Circle title="ruler" image="ruler" />
@@ -96,13 +118,20 @@ class Verse extends Pack.Component {
       );
     }
 
-    if (militaryItem) {
+    if (militaryItems && militaryItems.length) {
       dirSwitch = !dirSwitch;
       className = `item-wrapper flex ${dirSwitch ? null : 'fd-rr'}`;
+      items = militaryItems.map((militaryItem, i) => {
+        return (
+          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={militaryItem.name} content={militaryItem.content}
+            titleRight={`${militaryItem.start} ${militaryItem.startExt}`} show={i === 0} key={i} />
+        );
+      })
       military = (
         <div className={className}>
-          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={militaryItem.name} content={militaryItem.content}
-            titleRight={`${militaryItem.start} ${militaryItem.startExt}`} />
+          <div className={`items-wrapper ${dirSwitch ? 'right' : 'left'}`}>
+            {items}
+          </div>
           <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('military')}>
             <div>
               <Comp.Circle title="military" image="military" />
@@ -112,13 +141,20 @@ class Verse extends Pack.Component {
       );
     }
 
-    if (personItem) {
+    if (personItems && personItems.length) {
       dirSwitch = !dirSwitch;
       className = `item-wrapper flex ${dirSwitch ? null : 'fd-rr'}`;
+      items = personItems.map((personItem, i) => {
+        return (
+          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={personItem.name} content={personItem.content}
+            titleRight={`${personItem.start} ${personItem.startExt}`} show={i === 0} key={i} />
+        );
+      })
       person = (
         <div className={className}>
-          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={personItem.name} content={personItem.content}
-            titleRight={`${personItem.start} ${personItem.startExt}`} />
+          <div className={`items-wrapper ${dirSwitch ? 'right' : 'left'}`}>
+            {items}
+          </div>
           <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('person')}>
             <div>
               <Comp.Circle title="person" image="geneology" />
@@ -130,13 +166,38 @@ class Verse extends Pack.Component {
 
     if (timelineItem) {
       dirSwitch = !dirSwitch;
-      className = `item-wrapper flex ${dirSwitch ? null : 'fd-rr'}`;
+      className = `item-wrapper single flex ${dirSwitch ? null : 'fd-rr'}`;
       timeline = (
         <div className={className}>
           <Comp.Timeline dir={dirSwitch ? 'right' : 'left'} timeline={timelineItem} end={false} />
           <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('timeline')}>
             <div>
               <Comp.Circle title="timeline" image="timeline" />
+            </div>
+          </Pack.Holdable>
+        </div>
+      );
+    }
+
+    if (commentItems && commentItems.length) {
+      dirSwitch = !dirSwitch;
+      className = `item-wrapper flex ${dirSwitch ? null : 'fd-rr'}`;
+      items = commentItems.map((commentItem, i) => {
+        return (
+          <Comp.TextBox dir={dirSwitch ? 'right' : 'left'} text={commentItem.comment} key={i} />
+        );
+      })
+      comment = (
+        <div className={className}>
+          <div className={`items-wrapper flex ${dirSwitch ? 'right' : 'left'}`}>
+            {items}
+          </div>
+          <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('comment')}>
+            <div>
+              <div className="comment-circle">
+                <img src={this.props.user.url} />
+              </div>
+              <h1 className="title">comment</h1>
             </div>
           </Pack.Holdable>
         </div>
@@ -155,13 +216,14 @@ class Verse extends Pack.Component {
               <i className="material-icons" style={!this.state.showInfo ? {transform: 'rotate(270deg)'} : null}
                 onClick={this.hideInfo}>arrow_drop_down</i>
             </div>
-            {contextItem ? (context) : null}
-            {linkItem ? (link) : null}
-            {prophetItem ? (prophet) : null}
-            {rulerItem ? (ruler) : null}
-            {militaryItem ? (military) : null}
-            {personItem ? (person) : null}
-            {timelineItem ? (timeline) : null}
+            {contextItem && this.state.showInfo ? (context) : null}
+            {linkItems && linkItems.length && this.state.showInfo ? (link) : null}
+            {prophetItems && prophetItems.length && this.state.showInfo ? (prophet) : null}
+            {rulerItems && rulerItems.length && this.state.showInfo ? (ruler) : null}
+            {militaryItems && militaryItems.length && this.state.showInfo ? (military) : null}
+            {personItems && personItems.length && this.state.showInfo ? (person) : null}
+            {timelineItem && this.state.showInfo ? (timeline) : null}
+            {commentItems && commentItems.length ? (comment) : null}
           </div>
         ) : null}
       </div>
@@ -176,7 +238,8 @@ const hold = Pack.defineHold({holdFor: 500});
 
 const mapStateToProps = (state) => {
   return {
-    scripture: state.scripture
+    scripture: state.scripture,
+    user: state.user
   }
 }
 
