@@ -32,14 +32,16 @@ class Modal extends Pack.Component {
   save(form, table) {
     form.userId = this.props.user.userId;
     form.refId = this.props.scripture.refId;
-    Pack.axios.post(`/upsert/${table}`, form).then((response) => {
+    Pack.axios.post(`/upsert/${table}`, form)
+    .then((response) => {
       this.setState({error: ""}, () => {
         this.props.closeModal();
         if (response.data.nModified) {
           this.props.setItem(form);
           this.props.updAddition(form);
         } else {
-          this.props.addAddition(response.data.ops[0]);
+          form._id = response.data.ops[0]._id;
+          this.props.addAddition(form);
         }
       });
     });

@@ -1,5 +1,5 @@
-import hasContext from './has-context';
+import hasItem from './has-item';
 
 export {
-  hasContext
+  hasItem
 }

@@ -22,13 +22,13 @@ class Nav extends Pack.Component {
     return (
       <div id="Nav">
         <div className="nav-wrapper flex jc-sb">
-          <div onClick={this.updateIndices} className="reference flex ai-c">
+          <div id="nav-ref" onClick={this.updateIndices} className="reference flex ai-c">
             {this.props.scripture.abrString}
           </div>
-          <div className="logo flex jc-c ai-c">
+          <div id="nav-logo" className="logo flex jc-c ai-c">
             <img src={getAsset('logo-small', 'png')} />
           </div>
-          <div className="add flex jc-fe ai-c" onClick={this.showMenu}>
+          <div id="nav-add" className="add flex jc-fe ai-c" onClick={this.showMenu}>
             <i className="material-icons">add</i>
           </div>
           <Comp.Menu show={this.state.showMenu} hideMenu={this.hideMenu} openModal={this.openModal} />

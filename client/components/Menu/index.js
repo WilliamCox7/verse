@@ -9,7 +9,7 @@ class Menu extends Pack.Component {
 
   constructor() {
     super();
-    this.hasContext = this.hasContext.bind(this);
+    this.hasItem = this.hasItem.bind(this);
   }
 
   render() {
@@ -17,7 +17,7 @@ class Menu extends Pack.Component {
       <component id="Menu" style={this.props.show ? null : {display: "none"}} onClick={this.props.hideMenu}>
         <div className="menu-wrapper">
           <div className="button-container">
-            {!this.hasContext() ? (
+            {!this.hasItem('context') ? (
               <div className="menu-button flex jc-c ai-c" onClick={() => this.props.openModal('context')}>
                 <Comp.Circle image="context" />
                 <h1>context</h1>
@@ -43,10 +43,12 @@ class Menu extends Pack.Component {
               <Comp.Circle image="ruler" />
               <h1>ruler</h1>
             </div>
-            <div className="menu-button flex jc-c ai-c" onClick={() => this.props.openModal('timeline')}>
-              <Comp.Circle image="timeline" />
-              <h1>timeline</h1>
-            </div>
+            {!this.hasItem('timeline') ? (
+              <div className="menu-button flex jc-c ai-c" onClick={() => this.props.openModal('timeline')}>
+                <Comp.Circle image="timeline" />
+                <h1>timeline</h1>
+              </div>
+            ) : null}
             <div className="comment-button flex jc-c ai-c" onClick={() => this.props.openModal('comment')}>
               <img src={this.props.user.url} />
               <h1>comment</h1>
@@ -58,7 +60,7 @@ class Menu extends Pack.Component {
   }
 }
 
-Menu.prototype.hasContext = Meth.hasContext;
+Menu.prototype.hasItem = Meth.hasItem;
 
 const mapStateToProps = (state) => {
   return {

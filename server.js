@@ -11,7 +11,8 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/build'));
 
 // routes
-app.get('/verse/:work/:book/:chap/:vers/:userId', ss.getInitVerses);
+app.get('/verses/:work/:book/:chap/:vers/:userId', ss.getInitVerses);
+app.get('/verse/:work/:book/:chap/:vers/:userId', ss.getVerseByReference);
 app.get('/verse/:id/:userId', ss.getVerse);
 app.post('/upsert/:table', ss.upsert);
 

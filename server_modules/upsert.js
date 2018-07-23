@@ -10,10 +10,16 @@ module.exports = (body, table) => new Promise((resolve, reject) => {
     let userId = body.userId;
     let id = body._id ? ObjectId(body._id) : null;
     let dontSaveToScripture = body.dontSaveToScripture;
+
     delete body.refId;
     delete body.userId;
     delete body._id;
     delete body.type;
+
+    if (table === 'link') {
+      delete body.reference;
+      delete body.content;
+    }
 
     mongoClient.connect(mongoURI, (err, db) => {
 

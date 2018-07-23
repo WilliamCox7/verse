@@ -1,5 +1,5 @@
 import React from 'react';
-import options from '../options.json';
+import options from './options.json';
 
 export default function buildOptionsFor() {
   let works = getWorks(this);

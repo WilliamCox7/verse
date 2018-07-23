@@ -63,6 +63,18 @@
       .space {
         height: 10px;
       }
+      .search-ref {
+        margin-bottom: 15px;
+        .selects {
+          width: 100%;
+          select {
+            margin: 2px;
+            @media(min-width: 768px) {
+              font-size: 13px;
+            }
+          }
+        }
+      }
     }
   }
   .error-message {

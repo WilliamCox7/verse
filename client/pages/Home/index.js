@@ -3,6 +3,7 @@ import * as Pack from '../../exports/packages';
 import * as Comp from '../../exports/components';
 import * as Rdux from '../../exports/reducers';
 import * as Meth from './methods';
+import { buildOptionsFor } from '../../modules';
 import './style.scss';
 
 class Home extends Pack.Component {
@@ -33,7 +34,7 @@ class Home extends Pack.Component {
   componentDidMount() {
     let user = localStorage.getItem("user");
     if (user) user = JSON.parse(user);
-    Pack.axios.get(`/verse/Old Testament/Genesis/1/1/${user.userId}`).then((response) => {
+    Pack.axios.get(`/verses/Old Testament/Genesis/1/1/${user.userId}`).then((response) => {
       let indices = [];
       for (var i = 0; i < 100; i++) {
         indices.push(false);
@@ -44,7 +45,7 @@ class Home extends Pack.Component {
       this.props.setVerses(indices);
     });
   }
-  
+
   render() {
 
     let options = this.buildOptionsFor();
@@ -95,7 +96,7 @@ Home.prototype.disablePulling = Meth.disablePulling;
 Home.prototype.enablePulling = Meth.enablePulling;
 Home.prototype.updatedSwipeIndex = Meth.updatedSwipeIndex;
 Home.prototype.setVerse = Meth.setVerse;
-Home.prototype.buildOptionsFor = Meth.buildOptionsFor;
+Home.prototype.buildOptionsFor = buildOptionsFor;
 
 const mapStateToProps = (state) => {
   return {
