@@ -15,6 +15,12 @@
       @media(min-width: 768px) {
         padding-bottom: 20px;
       }
+      .left {
+        margin-left: 8px;
+        @media(min-width: 768px) {
+          margin-left: 20px;
+        }
+      }
     }
     i {
       position: absolute;
@@ -33,16 +39,20 @@
     @media(min-width: 768px) {
       min-height: 100px;
     }
-    .TextBox.left {
+    .left {
       margin-right: 53px;
+      margin-left: 8px;
       @media(min-width: 768px) {
         margin-right: 80px;
+        margin-left: 20px;
       }
     }
-    .TextBox.right {
+    .right {
       margin-left: 53px;
+      margin-right: 8px;
       @media(min-width: 768px) {
         margin-left: 80px;
+        margin-right: 20px;
       }
     }
   }

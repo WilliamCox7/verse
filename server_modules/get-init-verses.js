@@ -35,9 +35,33 @@ module.exports = (params) => new Promise((resolve, reject) => {
           .then((allMaps) => {
             allMaps.forEach((map, i) => {
               map.forEach((item) => {
-                if (i === 0) prevPromises.push(db.collection(item.table).find({ _id: item.tableId }).toArray());
-                if (i === 1) curPromises.push(db.collection(item.table).find({ _id: item.tableId }).toArray());
-                if (i === 2) nextPromises.push(db.collection(item.table).find({ _id: item.tableId }).toArray());
+                if (i === 0) prevPromises.push(
+                  db.collection(item.table).find({ _id: item.tableId }).toArray()
+                  .then((prevItems) => {
+                    return prevItems.map((prevItem) => {
+                      prevItem.type = item.table
+                      return prevItem;
+                    });
+                  })
+                );
+                if (i === 1) curPromises.push(
+                  db.collection(item.table).find({ _id: item.tableId }).toArray()
+                  .then((curItems) => {
+                    return curItems.map((curItem) => {
+                      curItem.type = item.table
+                      return curItem;
+                    });
+                  })
+                );
+                if (i === 2) nextPromises.push(
+                  db.collection(item.table).find({ _id: item.tableId }).toArray()
+                  .then((nextItems) => {
+                    return nextItems.map((nextItem) => {
+                      nextItem.type = item.table
+                      return nextItem;
+                    });
+                  })
+                );
               });
             });
             return Promise.resolve();

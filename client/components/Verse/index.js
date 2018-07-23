@@ -18,10 +18,11 @@ class Verse extends Pack.Component {
 
   render() {
 
-    let contextItem, personItem;
+    let contextItem, personItem, timelineItem;
     if (this.props.items) {
-      contextItem = this.props.items.find((item) => item.hasOwnProperty('context'))
-      personItem = this.props.items.find((item) => item.hasOwnProperty('name'));
+      contextItem = this.props.items.find((item) => item.type === 'context')
+      personItem = this.props.items.find((item) => item.type === 'person');
+      timelineItem = this.props.items.find((item) => item.type === 'timeline');
     }
 
     return (
@@ -50,9 +51,19 @@ class Verse extends Pack.Component {
               <div className="item-wrapper flex fd-rr">
                 <Comp.TextDropDown dir="left" titleLeft={personItem.name} content={personItem.content}
                   titleRight={`${personItem.start} ${personItem.startExt}`} />
-                <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('person', 'name')}>
+                <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('person')}>
                   <div>
                     <Comp.Circle title="person" image="geneology" />
+                  </div>
+                </Pack.Holdable>
+              </div>
+            ) : null}
+            {timelineItem ? (
+              <div className="item-wrapper flex">
+                <Comp.Timeline dir="right" timeline={timelineItem} end={false} />
+                <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('timeline')}>
+                  <div>
+                    <Comp.Circle title="timeline" image="timeline" />
                   </div>
                 </Pack.Holdable>
               </div>

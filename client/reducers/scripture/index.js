@@ -54,7 +54,7 @@ export default function reducer(state=initState, action) {
     case UPD_ADD:
       let items = editState.verses[editState.index].items;
       editState.verses[editState.index].items = items.map((item) => {
-        if (item._id === p.id) item = p;
+        if (item._id === p._id) item = p;
         return item;
       });
       return Object.assign({}, state, editState);

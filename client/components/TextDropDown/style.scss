@@ -22,21 +22,3 @@
     margin-top: 1px;
   }
 }
-
-.TextDropDown.left {
-  margin-left: 8px;
-  margin-right: 53px;
-  @media(min-width: 768px) {
-    margin-left: 20px;
-    margin-right: 80px;
-  }
-}
-
-.TextDropDown.right {
-  margin-right: 8px;
-  margin-left: 53px;
-  @media(min-width: 768px) {
-    margin-right: 20px;
-    margin-left: 80px;
-  }
-}

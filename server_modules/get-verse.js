@@ -24,7 +24,15 @@ module.exports = (id, userId) => new Promise((resolve, reject) => {
 
           let promises = [];
           map.forEach((item) => {
-            promises.push(db.collection(item.table).find({ _id: item.tableId }).toArray())
+            promises.push(
+              db.collection(item.table).find({ _id: item.tableId }).toArray()
+              .then((verseItems) => {
+                return verseItems.map((verseItem) => {
+                  verseItem.type = item.table
+                  return verseItem;
+                });
+              })
+            );
           });
 
           Promise.all(promises)

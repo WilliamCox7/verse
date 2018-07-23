@@ -8,11 +8,12 @@ module.exports = (body, table) => new Promise((resolve, reject) => {
 
     let refId = ObjectId(body.refId);
     let userId = body.userId;
-    let id = body.id ? ObjectId(body.id) : null;
+    let id = body._id ? ObjectId(body._id) : null;
     let dontSaveToScripture = body.dontSaveToScripture;
     delete body.refId;
     delete body.userId;
-    delete body.id;
+    delete body._id;
+    delete body.type;
 
     mongoClient.connect(mongoURI, (err, db) => {
 

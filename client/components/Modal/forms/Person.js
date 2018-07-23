@@ -7,18 +7,19 @@ class Person extends Pack.Component {
     super(props);
     this.state = {
       name: props.item && props.item.name ? props.item.name : "",
-      start: props.item && props.item.start ? props.item.start :  undefined,
-      startExt: props.item && props.item.startExt ? props.item.startExt :  "",
-      end: props.item && props.item.end ? props.item.end :  undefined,
-      endExt: props.item && props.item.endExt ? props.item.endExt :  "",
-      content: props.item && props.item.content ? props.item.content :  "",
-      mother: props.item && props.item.mother ? props.item.mother :  "",
-      father: props.item && props.item.father ? props.item.father :  "",
-      children: props.item && props.item.children ? props.item.children :  [""],
-      wives: props.item && props.item.wives ? props.item.wives :  [""],
-      dontSaveToScripture: props.item ? props.item.dontSaveToScripture :  false,
+      start: props.item && props.item.start ? props.item.start : "",
+      startExt: props.item && props.item.startExt ? props.item.startExt : "",
+      end: props.item && props.item.end ? props.item.end : "",
+      endExt: props.item && props.item.endExt ? props.item.endExt : "",
+      content: props.item && props.item.content ? props.item.content : "",
+      mother: props.item && props.item.mother ? props.item.mother : "",
+      father: props.item && props.item.father ? props.item.father : "",
+      children: props.item && props.item.children ? props.item.children : [""],
+      wives: props.item && props.item.wives ? props.item.wives : [""],
+      dontSaveToScripture: props.item ? props.item.dontSaveToScripture : false,
       showCheckbox: props.item ? false : true,
-      id: props.item && props.item._id ? props.item._id : ""
+      _id: props.item && props.item._id ? props.item._id : "",
+      type: props.item && props.item.type ? props.item.type : 'person'
     }
     this.save = this.save.bind(this);
     this.update = this.update.bind(this);

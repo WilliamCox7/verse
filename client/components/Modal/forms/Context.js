@@ -7,7 +7,8 @@ class Context extends Pack.Component {
     super(props);
     this.state = {
       context: props.item && props.item.context ? props.item.context : "",
-      id: props.item && props.item._id ? props.item._id : ""
+      _id: props.item && props.item._id ? props.item._id : "",
+      type: props.item && props.item.type ? props.item.type : 'context'
     }
     this.save = this.save.bind(this);
     this.update = this.update.bind(this);

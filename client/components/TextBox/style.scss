@@ -18,17 +18,3 @@
     }
   }
 }
-
-.TextBox.left {
-  margin-left: 8px;
-  @media(min-width: 768px) {
-    margin-left: 20px;
-  }
-}
-
-.TextBox.right {
-  margin-right: 8px;
-  @media(min-width: 768px) {
-    margin-right: 20px;
-  }
-}
