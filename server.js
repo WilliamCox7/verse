@@ -14,6 +14,7 @@ app.use(express.static(__dirname + '/build'));
 app.get('/verses/:work/:book/:chap/:vers/:userId', ss.getInitVerses);
 app.get('/verse/:work/:book/:chap/:vers/:userId', ss.getVerseByReference);
 app.get('/verse/:id/:userId', ss.getVerse);
+app.get('/people/:search', ss.getPeople);
 app.post('/upsert/:table', ss.upsert);
 
 // wildcard route - allows for browser refresh while using react router

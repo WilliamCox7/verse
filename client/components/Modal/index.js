@@ -30,18 +30,28 @@ class Modal extends Pack.Component {
   }
 
   save(form, table) {
-    form.userId = this.props.user.userId;
-    form.refId = this.props.scripture.refId;
-    Pack.axios.post(`/upsert/${table}`, form)
+    let toSave = {};
+    if (table === 'military' || table === 'ruler' || table === 'prophet') {
+      toSave.personId = form[table]._id;
+      toSave.type = table;
+    } else {
+      toSave = form;
+    }
+    toSave.userId = this.props.user.userId;
+    toSave.refId = this.props.scripture.refId;
+    Pack.axios.post(`/upsert/${table}`, toSave)
     .then((response) => {
       this.setState({error: ""}, () => {
         this.props.closeModal();
+        if (table === 'military' || table === 'ruler' || table === 'prophet') {
+          toSave = Object.assign({}, toSave, form[table]);
+        }
         if (response.data.nModified) {
-          this.props.setItem(form);
-          this.props.updAddition(form);
+          this.props.setItem(toSave);
+          this.props.updAddition(toSave);
         } else {
-          form._id = response.data.ops[0]._id;
-          this.props.addAddition(form);
+          toSave._id = response.data.ops[0]._id;
+          this.props.addAddition(toSave);
         }
       });
     });

@@ -18,17 +18,20 @@ class Verse extends Pack.Component {
 
   render() {
     let dirSwitch = false, className;
-    let contextItem, linkItem, personItem, timelineItem;
+    let contextItem, linkItem, prophetItem, rulerItem, militaryItem, personItem, timelineItem;
 
     let items = this.props.verse.items;
     if (items) {
       contextItem = items.find((item) => item.type === 'context');
       linkItem = items.find((item) => item.type === 'link');
+      prophetItem = items.find((item) => item.type === 'prophet');
+      rulerItem = items.find((item) => item.type === 'ruler');
+      militaryItem = items.find((item) => item.type === 'military');
       personItem = items.find((item) => item.type === 'person');
       timelineItem = items.find((item) => item.type === 'timeline');
     }
 
-    let context, link, person, timeline;
+    let context, link, prophet, ruler, military, person, timeline;
 
     if (contextItem) {
       dirSwitch = !dirSwitch;
@@ -55,6 +58,54 @@ class Verse extends Pack.Component {
           <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('link')}>
             <div>
               <Comp.Circle title="link" image="link" />
+            </div>
+          </Pack.Holdable>
+        </div>
+      );
+    }
+
+    if (prophetItem) {
+      dirSwitch = !dirSwitch;
+      className = `item-wrapper flex ${dirSwitch ? null : 'fd-rr'}`;
+      prophet = (
+        <div className={className}>
+          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={prophetItem.name} content={prophetItem.content}
+            titleRight={`${prophetItem.start} ${prophetItem.startExt}`} />
+          <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('prophet')}>
+            <div>
+              <Comp.Circle title="prophet" image="prophet" />
+            </div>
+          </Pack.Holdable>
+        </div>
+      );
+    }
+
+    if (rulerItem) {
+      dirSwitch = !dirSwitch;
+      className = `item-wrapper flex ${dirSwitch ? null : 'fd-rr'}`;
+      ruler = (
+        <div className={className}>
+          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={rulerItem.name} content={rulerItem.content}
+            titleRight={`${rulerItem.start} ${rulerItem.startExt}`} />
+          <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('ruler')}>
+            <div>
+              <Comp.Circle title="ruler" image="ruler" />
+            </div>
+          </Pack.Holdable>
+        </div>
+      );
+    }
+
+    if (militaryItem) {
+      dirSwitch = !dirSwitch;
+      className = `item-wrapper flex ${dirSwitch ? null : 'fd-rr'}`;
+      military = (
+        <div className={className}>
+          <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={militaryItem.name} content={militaryItem.content}
+            titleRight={`${militaryItem.start} ${militaryItem.startExt}`} />
+          <Pack.Holdable config={hold} onHoldComplete={() => this.openModal('military')}>
+            <div>
+              <Comp.Circle title="military" image="military" />
             </div>
           </Pack.Holdable>
         </div>
@@ -106,6 +157,9 @@ class Verse extends Pack.Component {
             </div>
             {contextItem ? (context) : null}
             {linkItem ? (link) : null}
+            {prophetItem ? (prophet) : null}
+            {rulerItem ? (ruler) : null}
+            {militaryItem ? (military) : null}
             {personItem ? (person) : null}
             {timelineItem ? (timeline) : null}
           </div>

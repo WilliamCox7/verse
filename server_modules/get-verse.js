@@ -53,10 +53,7 @@ function addItemTypeToAllTableItems(tableItems, table) {
 }
 
 function getScriptureContentsForItem(iter, item, db, items) {
-  if (item.type !== 'link') {
-    items.push(item);
-    return iterate(iter, getScriptureContentsForItem, db, items);
-  } else {
+  if (item.type === 'link') {
     let search = {
       workFul: item.work, bookFul: item.book,
       chapter: Number(item.chap), verse: Number(item.vers)
@@ -68,5 +65,15 @@ function getScriptureContentsForItem(iter, item, db, items) {
       items.push(item);
       return iterate(iter, getScriptureContentsForItem, db, items);
     });
+  } else if (item.type === 'military' || item.type === 'prophet' || item.type === 'ruler') {
+    return db.collection('person').find({ _id: item.personId }).toArray()
+    .then((person) => {
+      item = Object.assign({}, item, person[0]);
+      items.push(item);
+      return iterate(iter, getScriptureContentsForItem, db, items);
+    });
+  } else {
+    items.push(item);
+    return iterate(iter, getScriptureContentsForItem, db, items);
   }
 }

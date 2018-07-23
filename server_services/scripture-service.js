@@ -26,6 +26,12 @@ module.exports = {
     .catch((err) => res.status(500).send(err));
   },
 
+  getPeople: (req, res) => {
+    sm.getPeople(req.params.search)
+    .then((result) => res.status(200).send(result))
+    .catch((err) => res.status(500).send(err));
+  },
+
   upsert: (req, res) => {
     sm.upsert(req.body, req.params.table)
     .then((result) => res.status(200).send(result))

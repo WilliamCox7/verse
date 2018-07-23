@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Pack from '../../../exports/packages';
+import * as Comp from '../../../exports/components';
 
 class SelectPerson extends Pack.Component {
 
@@ -11,20 +12,24 @@ class SelectPerson extends Pack.Component {
     this.update = this.update.bind(this);
   }
 
-  update(e) {
+  update(selected, name) {
     let newState = Object.assign({}, this.state);
-    newState[e.target.name] = e.target.value;
+    newState[name] = selected;
     this.setState(newState);
   }
 
   save() {
-    this.props.save(this.state);
+    if (this.state[this.props.type].name) {
+      this.props.save(this.state, this.props.type);
+    } else {
+      this.props.error("You must select a person from the list below");
+    }
   }
 
   render() {
     return (
       <div className="form">
-        <input placeholder={this.props.type} value={this.state[this.props.type]} name={this.props.type} onChange={this.update} />
+        <Comp.InputSelect update={this.update} placeholder={this.props.type} name={this.props.type} />
         <button onClick={this.save}>save</button>
       </div>
     );

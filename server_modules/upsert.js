@@ -21,6 +21,10 @@ module.exports = (body, table) => new Promise((resolve, reject) => {
       delete body.content;
     }
 
+    if (table === 'military' || table === 'prophet' || table === 'ruler') {
+      body.personId = ObjectId(body.personId);
+    }
+
     mongoClient.connect(mongoURI, (err, db) => {
 
       if (id) {

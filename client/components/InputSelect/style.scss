@@ -1,0 +1,17 @@
+@import "../../vars.scss";
+
+.InputSelect {
+  .options {
+    float: left;
+    padding: 10px;
+    text-align: left;
+    div {
+      margin-bottom: 10px;
+      span {
+        color: $gray-3;
+        font-style: italic;
+        margin-left: 10px;
+      }
+    }
+  }
+}
