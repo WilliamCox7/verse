@@ -32,11 +32,36 @@ class Link extends Pack.Component {
     this.setState(newState);
   }
 
-  updateSelect(e, arr) {
+  updateSelect(e, options) {
     let newState = Object.assign({}, this.state);
-    newState[e.target.name] = arr[e.target.value];
-    newState[`${e.target.name}Index`] = e.target.value;
-    this.setState(newState);
+    let name = e.target.name;
+    newState[`${name}Index`] = e.target.value;
+    if (name === 'work') {
+      newState[name] = options.works.arr[e.target.value];
+      newState.chap = 1;
+      newState.vers = 1;
+      newState.bookIndex = 0;
+      newState.chapIndex = 0;
+      newState.versIndex = 0;
+    } else if (name === 'book') {
+      newState[name] = options.books.arr[e.target.value];
+      newState.chap = 1;
+      newState.vers = 1;
+      newState.chapIndex = 0;
+      newState.versIndex = 0;
+    } else if (name === 'chap') {
+      newState[name] = options.chapters.arr[e.target.value];
+      newState.vers = 1;
+      newState.versIndex = 0;
+    } else {
+      newState[name] = options.verses.arr[e.target.value];
+    }
+    this.setState(newState, () => {
+      if (name === 'work') {
+        options = this.buildOptionsFor();
+        this.setState({book: options.books.arr[0]});
+      }
+    });
   }
 
   save() {
@@ -68,10 +93,10 @@ class Link extends Pack.Component {
         <input placeholder="title" value={this.state.title} name="title" onChange={this.update} />
         <div className="search-ref flex jc-sb">
           <div className="selects flex">
-            <select value={this.state.workIndex} name="work" onChange={(e) => this.updateSelect(e, options.works.arr)}>{options.works.options}</select>
-            <select value={this.state.bookIndex} name="book" onChange={(e) => this.updateSelect(e, options.books.arr)}>{options.books.options}</select>
-            <select value={this.state.chapIndex} name="chap" onChange={(e) => this.updateSelect(e, options.chapters.arr)}>{options.chapters.options}</select>
-            <select value={this.state.versIndex} name="vers" onChange={(e) => this.updateSelect(e, options.verses.arr)}>{options.verses.options}</select>
+            <select value={this.state.workIndex} name="work" onChange={(e) => this.updateSelect(e, options)}>{options.works.options}</select>
+            <select value={this.state.bookIndex} name="book" onChange={(e) => this.updateSelect(e, options)}>{options.books.options}</select>
+            <select value={this.state.chapIndex} name="chap" onChange={(e) => this.updateSelect(e, options)}>{options.chapters.options}</select>
+            <select value={this.state.versIndex} name="vers" onChange={(e) => this.updateSelect(e, options)}>{options.verses.options}</select>
           </div>
         </div>
         <button onClick={this.save}>save</button>
