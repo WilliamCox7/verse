@@ -34,6 +34,7 @@ class Modal extends Pack.Component {
     if (table === 'military' || table === 'ruler' || table === 'prophet') {
       toSave.personId = form[table]._id;
       toSave.type = table;
+      toSave._id = form._id;
     } else {
       toSave = form;
     }
@@ -44,13 +45,14 @@ class Modal extends Pack.Component {
       this.setState({error: ""}, () => {
         this.props.closeModal();
         if (table === 'military' || table === 'ruler' || table === 'prophet') {
-          toSave = Object.assign({}, toSave, form[table]);
+          toSave = Object.assign({}, form[table], toSave);
         }
         if (response.data.nModified) {
           this.props.setItem(toSave);
           this.props.updAddition(toSave);
         } else {
-          toSave._id = response.data.ops[0]._id;
+          toSave._id = response.data._id;
+          toSave.mapId = response.data.mapId;
           this.props.addAddition(toSave);
         }
       });

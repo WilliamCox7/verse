@@ -1,6 +1,8 @@
 import hideInfo from './hide-info';
-import openModal from './open-modal';
+import editItem from './edit-item';
+import deleteItem from './delete-item';
+import toggleOptions from './toggle-options';
 
 export {
-  hideInfo, openModal
+  hideInfo, editItem, deleteItem, toggleOptions
 }

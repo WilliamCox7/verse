@@ -16,6 +16,7 @@ app.get('/verse/:work/:book/:chap/:vers/:userId', ss.getVerseByReference);
 app.get('/verse/:id/:userId', ss.getVerse);
 app.get('/people/:search', ss.getPeople);
 app.post('/upsert/:table', ss.upsert);
+app.delete('/item/:id', ss.deleteItem);
 
 // wildcard route - allows for browser refresh while using react router
 app.get('*', (req, res) => {

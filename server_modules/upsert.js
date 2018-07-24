@@ -37,10 +37,11 @@ module.exports = (body, table) => new Promise((resolve, reject) => {
           resolve(result);
         });
       } else {
+        let response = {};
         db.collection(table).insert(body, (err, result) => {
           if (err) reject(err);
           if (result.ops[0]._id) {
-            let insert = result;
+            response._id = result.ops[0]._id;
             if (!dontSaveToScripture) {
               db.collection('map').insert({
                 refId: refId,
@@ -49,10 +50,11 @@ module.exports = (body, table) => new Promise((resolve, reject) => {
                 tableId: result.ops[0]._id
               }, (err, result) => {
                 if (err) reject(err);
-                resolve(insert);
+                response.mapId = result.ops[0]._id;
+                resolve(response);
               });
             } else {
-              resolve(insert);
+              resolve(response);
             }
           } else {
             resolve(result);

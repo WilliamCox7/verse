@@ -2,6 +2,7 @@
 
 .TextBox {
   padding: 7px;
+  position: relative;
   -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.10);
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.10);
   background: white;
@@ -15,6 +16,18 @@
     h1 {
       font-size: 16px;
       line-height: 22px;
+    }
+  }
+  .update-options {
+    position: absolute;
+    width: 45px;
+    height: 44px;
+    i {
+      color: $purple;
+    }
+    @media(min-width: 768px) {
+      width: 60px;
+      height: 44px;
     }
   }
 }

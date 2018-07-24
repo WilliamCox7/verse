@@ -5,6 +5,7 @@ const ADD_STT = 'scripture/ADD_STT';
 const SET_REF = 'scripture/SET_REF';
 const ADD_ADD = 'scripture/ADD_ADD';
 const UPD_ADD = 'scripture/UPD_ADD';
+const DEL_ADD = 'scripture/DEL_ADD';
 const SET_IND = 'scripture/SET_IND';
 
 const initState = {
@@ -51,10 +52,32 @@ export default function reducer(state=initState, action) {
       return Object.assign({}, state, editState);
 
     case UPD_ADD:
-      let items = editState.verses[editState.index].items;
-      editState.verses[editState.index].items = items.map((item) => {
-        if (item._id === p._id) item = p;
-        return item;
+      var items;
+      if (p.type === 'person') {
+        delete p.type;
+        editState.verses = editState.verses.map((verse) => {
+          if (!verse) return verse;
+          verse.items = verse.items.map((item) => {
+            if (item._id === p._id || item.personId === p._id) item = Object.assign({}, item, p);
+            return item;
+          });
+          return verse;
+        });
+      } else {
+        items = editState.verses[editState.index].items;
+        editState.verses[editState.index].items = items.map((item) => {
+          if (item._id === p._id) item = p;
+          return item;
+        });
+      }
+      return Object.assign({}, state, editState);
+
+    case DEL_ADD:
+      var items;
+      items = editState.verses[editState.index].items;
+      editState.verses[editState.index].items = items.filter((item) => {
+        if (item.mapId === p) return false;
+        return true;
       });
       return Object.assign({}, state, editState);
 
@@ -128,6 +151,13 @@ export function updAddition(form) {
   return {
     type: UPD_ADD,
     payload: form
+  }
+}
+
+export function delAddition(id) {
+  return {
+    type: DEL_ADD,
+    payload: id
   }
 }
 

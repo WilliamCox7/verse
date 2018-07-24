@@ -5,11 +5,11 @@ import './style.scss';
 
 class InputSelect extends Pack.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       options: [],
-      selected: ""
+      selected: props.item && props.item.name ? props.item.name : "",
     }
     this.updateOptions = this.updateOptions.bind(this);
     this.select = this.select.bind(this);

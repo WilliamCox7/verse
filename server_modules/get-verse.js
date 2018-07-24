@@ -37,7 +37,7 @@ function iterate(iter, cb, db, items) {
 
 function processItemFromMap(iter, item, db, items) {
   return db.collection(item.table).find({ _id: item.tableId }).toArray()
-  .then((tableItems) => addItemTypeToAllTableItems(tableItems, item.table))
+  .then((tableItems) => addItemTypeToAllTableItems(tableItems, item.table, item._id))
   .then((tableItems) => tableItems.entries())
   .then((tableItemsIter) => iterate(tableItemsIter, getScriptureContentsForItem, db, []))
   .then((processed) => processed.forEach((p) => items.push(p)))
@@ -45,9 +45,10 @@ function processItemFromMap(iter, item, db, items) {
   .catch((err) => Promise.reject(err));
 }
 
-function addItemTypeToAllTableItems(tableItems, table) {
+function addItemTypeToAllTableItems(tableItems, table, mapId) {
   return tableItems.map((tableItem) => {
     tableItem.type = table;
+    tableItem.mapId = mapId;
     return tableItem;
   });
 }
@@ -68,7 +69,7 @@ function getScriptureContentsForItem(iter, item, db, items) {
   } else if (item.type === 'military' || item.type === 'prophet' || item.type === 'ruler') {
     return db.collection('person').find({ _id: item.personId }).toArray()
     .then((person) => {
-      item = Object.assign({}, item, person[0]);
+      item = Object.assign({}, person[0], item);
       items.push(item);
       return iterate(iter, getScriptureContentsForItem, db, items);
     });
