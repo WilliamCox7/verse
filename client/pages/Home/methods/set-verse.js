@@ -6,7 +6,7 @@ export default function setVerse(o, index) {
     let bi = this.state.bookIndex;
     let ci = this.state.chapIndex;
     let vi = this.state.versIndex;
-    Pack.axios.get(`/verse/${o.works.arr[wi]}/${o.books.arr[bi]}/${o.chapters.arr[ci]}/${o.verses.arr[vi]}/${this.props.user.userId}`).then((response) => {
+    Pack.axios.get(`/verses/${o.works.arr[wi]}/${o.books.arr[bi]}/${o.chapters.arr[ci]}/${o.verses.arr[vi]}/${this.props.user.userId}`).then((response) => {
       let indices = [];
       for (var i = 0; i < 100; i++) {
         indices.push(false);
