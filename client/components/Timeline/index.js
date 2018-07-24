@@ -35,6 +35,12 @@ class Timeline extends Pack.Component {
 
     return (
       <component id={`timeline-${this.props.timeline._id}`} className={className}>
+        {this.props.showOptions ? (
+          <div className="update-options flex jc-sb" style={this.props.dir === 'left' ? {right: '-80px'} : {left: '-80px'}}>
+            <i className="material-icons" onClick={() => this.props.editItem(this.props.item)}>edit</i>
+            <i className="material-icons" onClick={() => this.props.deleteItem(this.props.item.mapId)}>delete</i>
+          </div>
+        ) : null}
         <div className="date flex fd-c jc-c" style={{marginLeft: marginLeft}}>
           <span className="flex jc-c">
             <h1 id={`h1-${this.props.timeline._id}`}>

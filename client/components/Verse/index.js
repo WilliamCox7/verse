@@ -18,6 +18,7 @@ class Verse extends Pack.Component {
         ruler: false,
         military: false,
         person: false,
+        timeline: false,
         comment: false
       }
     }
@@ -25,6 +26,8 @@ class Verse extends Pack.Component {
     this.editItem = this.editItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
     this.toggleOptions = this.toggleOptions.bind(this);
+    this.goToVerse = this.goToVerse.bind(this);
+    this.openGeneology = this.openGeneology.bind(this);
   }
 
   componentDidMount() {
@@ -76,7 +79,7 @@ class Verse extends Pack.Component {
         return (
           <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={linkItem.title} content={linkItem.content}
             titleRight={linkItem.reference} show={i === 0} key={i} editItem={this.editItem} deleteItem={this.deleteItem} item={linkItem}
-            showOptions={this.state.options.link} />
+            showOptions={this.state.options.link} callback={this.goToVerse} />
         );
       })
       link = (
@@ -100,7 +103,7 @@ class Verse extends Pack.Component {
         return (
           <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={prophetItem.name} content={prophetItem.content}
             titleRight={`${prophetItem.start} ${prophetItem.startExt}`} show={i === 0} key={i} editItem={this.editItem} deleteItem={this.deleteItem} item={prophetItem}
-            showOptions={this.state.options.prophet} />
+            showOptions={this.state.options.prophet} callback={this.openGeneology} />
         );
       })
       prophet = (
@@ -124,7 +127,7 @@ class Verse extends Pack.Component {
         return (
           <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={rulerItem.name} content={rulerItem.content}
             titleRight={`${rulerItem.start} ${rulerItem.startExt}`} show={i === 0} key={i} editItem={this.editItem} deleteItem={this.deleteItem} item={rulerItem}
-            showOptions={this.state.options.ruler} />
+            showOptions={this.state.options.ruler} callback={this.openGeneology} />
         );
       })
       ruler = (
@@ -148,7 +151,7 @@ class Verse extends Pack.Component {
         return (
           <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={militaryItem.name} content={militaryItem.content}
             titleRight={`${militaryItem.start} ${militaryItem.startExt}`} show={i === 0} key={i} editItem={this.editItem} deleteItem={this.deleteItem} item={militaryItem}
-            showOptions={this.state.options.military} />
+            showOptions={this.state.options.military} callback={this.openGeneology} />
         );
       })
       military = (
@@ -172,7 +175,7 @@ class Verse extends Pack.Component {
         return (
           <Comp.TextDropDown dir={dirSwitch ? 'right' : 'left'} titleLeft={personItem.name} content={personItem.content}
             titleRight={`${personItem.start} ${personItem.startExt}`} show={i === 0} key={i} editItem={this.editItem} deleteItem={this.deleteItem} item={personItem}
-            showOptions={this.state.options.person} />
+            showOptions={this.state.options.person} callback={this.openGeneology} />
         );
       })
       person = (
@@ -194,7 +197,8 @@ class Verse extends Pack.Component {
       className = `item-wrapper single flex ${dirSwitch ? null : 'fd-rr'}`;
       timeline = (
         <div className={className}>
-          <Comp.Timeline dir={dirSwitch ? 'right' : 'left'} timeline={timelineItem} end={false} />
+          <Comp.Timeline dir={dirSwitch ? 'right' : 'left'} timeline={timelineItem} end={false} editItem={this.editItem}
+            deleteItem={this.deleteItem} item={timelineItem} showOptions={this.state.options.timeline} />
           <Pack.Holdable config={hold} onHoldComplete={() => this.toggleOptions('timeline')}>
             <div>
               <Comp.Circle title="timeline" image="timeline" />
@@ -263,6 +267,8 @@ Verse.prototype.hideInfo = Meth.hideInfo;
 Verse.prototype.editItem = Meth.editItem;
 Verse.prototype.deleteItem = Meth.deleteItem;
 Verse.prototype.toggleOptions = Meth.toggleOptions;
+Verse.prototype.goToVerse = Meth.goToVerse;
+Verse.prototype.openGeneology = Meth.openGeneology;
 
 const hold = Pack.defineHold({holdFor: 500});
 
@@ -274,6 +280,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
+  setVerses: Rdux.setVerses,
   openModal: Rdux.openModal,
   delAddition: Rdux.delAddition
 }

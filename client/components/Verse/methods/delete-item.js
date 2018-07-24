@@ -9,6 +9,7 @@ export default function deleteItem(id) {
     ruler: false,
     military: false,
     person: false,
+    timeline: false,
     comment: false
   };
   this.setState(newState);

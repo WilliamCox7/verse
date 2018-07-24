@@ -50,8 +50,30 @@
         font-size: 20px;
         color: $gray-1;
         font-weight: bold;
+        width: 26px;
+        text-align: center;
         @media(min-width: 768px) {
           font-size: 30px;
+          width: 38px;
+        }
+      }
+    }
+    .back {
+      padding: 15px;
+      z-index: 1;
+      cursor: pointer;
+      @media(min-width: 768px) {
+        padding: 20px;
+      }
+      i {
+        font-size: 26px;
+        color: $gray-1;
+        font-weight: bold;
+        width: 26px;
+        text-align: center;
+        @media(min-width: 768px) {
+          font-size: 38px;
+          width: 38px;
         }
       }
     }

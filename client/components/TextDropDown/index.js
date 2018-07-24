@@ -20,16 +20,18 @@ class TextDropDown extends Pack.Component {
 
     return (
       <component className={className}>
-        <div className="text flex jc-sb" onClick={this.toggleInfo} style={this.state.showInfo ? null : style}>
-          <h1>{this.props.titleLeft}</h1>
-          <h1>{this.props.titleRight}</h1>
-          {this.props.showOptions ? (
-            <div className="update-options flex jc-sb" style={this.props.dir === 'left' ? {right: '-80px'} : {left: '-80px'}}>
-              <i className="material-icons" onClick={() => this.props.editItem(this.props.item)}>edit</i>
-              <i className="material-icons" onClick={() => this.props.deleteItem(this.props.item.mapId)}>delete</i>
-            </div>
-          ) : null}
-        </div>
+        <Pack.Holdable config={hold} onHoldComplete={() => this.props.callback(this.props.item)}>
+          <div className="text flex jc-sb" onClick={this.toggleInfo} style={this.state.showInfo ? null : style}>
+            <h1>{this.props.titleLeft}</h1>
+            <h1>{this.props.titleRight}</h1>
+            {this.props.showOptions ? (
+              <div className="update-options flex jc-sb" style={this.props.dir === 'left' ? {right: '-80px'} : {left: '-80px'}}>
+                <i className="material-icons" onClick={() => this.props.editItem(this.props.item)}>edit</i>
+                <i className="material-icons" onClick={() => this.props.deleteItem(this.props.item.mapId)}>delete</i>
+              </div>
+            ) : null}
+          </div>
+        </Pack.Holdable>
         {this.state.showInfo ? (
           <div className="text drop-down">
             <h1>{this.props.content}</h1>
@@ -39,6 +41,8 @@ class TextDropDown extends Pack.Component {
     );
   }
 }
+
+const hold = Pack.defineHold({holdFor: 500});
 
 TextDropDown.prototype.toggleInfo = Meth.toggleInfo;
 
