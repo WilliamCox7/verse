@@ -18,6 +18,6 @@ export default function setVerse(o, index) {
     }).catch((err) => {
       console.log(err);
     });
-    this.props.setNavIndex(index);
+    this.setState({viewIndex: index});
   }
 }

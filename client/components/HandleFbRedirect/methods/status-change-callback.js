@@ -9,9 +9,7 @@ export default function statusChangeCallback(response) {
       self.props.setUser(response.data.url, self.userId);
     });
     self.props.history.push('/');
-    self.props.updatePathname('/');
   } else {
     self.props.history.push('/login');
-    self.props.updatePathname('/login');
   }
 }

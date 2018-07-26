@@ -6,10 +6,11 @@ import setPulling from './set-pulling';
 import setVerse from './set-verse';
 import stopPulling from './stop-pulling';
 import updatePullingIndex from './update-pulling-index';
-import updatedSwipeIndex from './update-swipe-index';
+import updateNavIndex from './update-nav-index';
+import updateViewIndex from './update-view-index';
 
 export {
   changeIndexFromSpan, changeIndex, disablePulling,
   enablePulling, setPulling, setVerse, stopPulling,
-  updatePullingIndex, updatedSwipeIndex
+  updatePullingIndex, updateNavIndex, updateViewIndex
 }

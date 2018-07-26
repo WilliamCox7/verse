@@ -17,7 +17,9 @@ class Home extends Pack.Component {
       versIndex: 0,
       pullingList: undefined,
       y: undefined,
-      pullingDisabled: false
+      pullingDisabled: false,
+      navIndex: 0,
+      viewIndex: 0
     }
     this.changeIndex = this.changeIndex.bind(this);
     this.changeIndexFromSpan = this.changeIndexFromSpan.bind(this);
@@ -26,7 +28,8 @@ class Home extends Pack.Component {
     this.updatePullingIndex = this.updatePullingIndex.bind(this);
     this.disablePulling = this.disablePulling.bind(this);
     this.enablePulling = this.enablePulling.bind(this);
-    this.updatedSwipeIndex = this.updatedSwipeIndex.bind(this);
+    this.updateNavIndex = this.updateNavIndex.bind(this);
+    this.updateViewIndex = this.updateViewIndex.bind(this);
     this.setVerse = this.setVerse.bind(this);
     this.buildOptionsFor = this.buildOptionsFor.bind(this);
   }
@@ -49,7 +52,6 @@ class Home extends Pack.Component {
   render() {
 
     let options = this.buildOptionsFor();
-    let updIndex = this.props.nav.index;
     let style = screen.width < 768 ? ({
       padding: '13px 5px', overflowY: 'hidden'
     }) : ({
@@ -57,31 +59,34 @@ class Home extends Pack.Component {
     });
 
     return (
-      <page id="Home" className="flex jc-c">
-        <Pack.SwipeableViews style={style} index={this.props.nav.index} onChangeIndex={(index) => this.setVerse(options, index)}>
-          <div>
-            <div className="search-ref flex jc-sb">
-              <div className="selects flex">
-                <select value={this.state.workIndex} name="workIndex" onChange={this.changeIndex}>{options.works.options}</select>
-                <select value={this.state.bookIndex} name="bookIndex" onChange={this.changeIndex}>{options.books.options}</select>
-                <select value={this.state.chapIndex} name="chapIndex" onChange={this.changeIndex}>{options.chapters.options}</select>
-                <select value={this.state.versIndex} name="versIndex" onChange={this.changeIndex}>{options.verses.options}</select>
+      <page id="Home">
+        <Comp.Nav viewIndex={this.state.viewIndex} updateNavIndex={this.updateNavIndex} updateViewIndex={this.updateViewIndex} />
+        <div className="flex jc-c">
+          <Pack.SwipeableViews style={style} index={this.state.viewIndex} onChangeIndex={(index) => this.setVerse(options, index)}>
+            <div>
+              <div className="search-ref flex jc-sb">
+                <div className="selects flex">
+                  <select value={this.state.workIndex} name="workIndex" onChange={this.changeIndex}>{options.works.options}</select>
+                  <select value={this.state.bookIndex} name="bookIndex" onChange={this.changeIndex}>{options.books.options}</select>
+                  <select value={this.state.chapIndex} name="chapIndex" onChange={this.changeIndex}>{options.chapters.options}</select>
+                  <select value={this.state.versIndex} name="versIndex" onChange={this.changeIndex}>{options.verses.options}</select>
+                </div>
               </div>
+              <Pack.SwipeableViews index={this.state.navIndex} onChangeIndex={this.updateNavIndex} style={{'overflowY': 'scroll', 'height': 'calc(100vh - 175px)'}}
+                onSwitching={this.disablePulling} onTransitionEnd={this.enablePulling}>
+                <div className="swipe-list flex fd-c fw-w" id="work" onTouchStart={(e) => this.setPulling(e, 'work')}
+                  onTouchMove={this.updatePullingIndex} onTouchEnd={this.stopPulling}>{options.works.spans}</div>
+                <div className="swipe-list flex fd-c fw-w" id="book" onTouchStart={(e) => this.setPulling(e, 'book')}
+                  onTouchMove={this.updatePullingIndex} onTouchEnd={this.stopPulling}>{options.books.spans}</div>
+                <div className="swipe-list flex fd-c fw-w" id="chap" onTouchStart={(e) => this.setPulling(e, 'chap')}
+                  onTouchMove={this.updatePullingIndex} onTouchEnd={this.stopPulling}>{options.chapters.spans}</div>
+                <div className="swipe-list flex fd-c fw-w" id="vers" onTouchStart={(e) => this.setPulling(e, 'vers')}
+                  onTouchMove={this.updatePullingIndex} onTouchEnd={this.stopPulling}>{options.verses.spans}</div>
+              </Pack.SwipeableViews>
             </div>
-            <Pack.SwipeableViews index={this.props.nav.swipeIndex} onChangeIndex={this.updatedSwipeIndex} style={{'overflowY': 'scroll', 'height': 'calc(100vh - 175px)'}}
-              onSwitching={this.disablePulling} onTransitionEnd={this.enablePulling}>
-              <div className="swipe-list flex fd-c fw-w" id="work" onTouchStart={(e) => this.setPulling(e, 'work')}
-                onTouchMove={this.updatePullingIndex} onTouchEnd={this.stopPulling}>{options.works.spans}</div>
-              <div className="swipe-list flex fd-c fw-w" id="book" onTouchStart={(e) => this.setPulling(e, 'book')}
-                onTouchMove={this.updatePullingIndex} onTouchEnd={this.stopPulling}>{options.books.spans}</div>
-              <div className="swipe-list flex fd-c fw-w" id="chap" onTouchStart={(e) => this.setPulling(e, 'chap')}
-                onTouchMove={this.updatePullingIndex} onTouchEnd={this.stopPulling}>{options.chapters.spans}</div>
-              <div className="swipe-list flex fd-c fw-w" id="vers" onTouchStart={(e) => this.setPulling(e, 'vers')}
-                onTouchMove={this.updatePullingIndex} onTouchEnd={this.stopPulling}>{options.verses.spans}</div>
-            </Pack.SwipeableViews>
-          </div>
-          <Comp.Scripture />
-        </Pack.SwipeableViews>
+            <Comp.Scripture />
+          </Pack.SwipeableViews>
+        </div>
       </page>
     );
   }
@@ -94,22 +99,20 @@ Home.prototype.stopPulling = Meth.stopPulling;
 Home.prototype.updatePullingIndex = Meth.updatePullingIndex;
 Home.prototype.disablePulling = Meth.disablePulling;
 Home.prototype.enablePulling = Meth.enablePulling;
-Home.prototype.updatedSwipeIndex = Meth.updatedSwipeIndex;
+Home.prototype.updateNavIndex = Meth.updateNavIndex;
+Home.prototype.updateViewIndex = Meth.updateViewIndex;
 Home.prototype.setVerse = Meth.setVerse;
 Home.prototype.buildOptionsFor = buildOptionsFor;
 
 const mapStateToProps = (state) => {
   return {
     scripture: state.scripture,
-    nav: state.nav,
     user: state.user
   }
 }
 
 const mapDispatchToProps = {
-  setVerses: Rdux.setVerses,
-  setNavIndex: Rdux.setNavIndex,
-  setSwipeIndex: Rdux.setSwipeIndex
+  setVerses: Rdux.setVerses
 }
 
 export default Pack.connect(mapStateToProps, mapDispatchToProps)(Home);

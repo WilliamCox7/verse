@@ -1,4 +1,4 @@
 export default function updateIndices() {
-  this.props.nav.index === 0 ? this.props.setNavIndex(1) : this.props.setNavIndex(0);
-  this.props.setSwipeIndex(0);
+  this.props.viewIndex === 0 ? this.props.updateViewIndex(1) : this.props.updateViewIndex(0);
+  this.props.updateNavIndex(0);
 }

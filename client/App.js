@@ -6,25 +6,11 @@ import './reset.scss';
 import './main.scss';
 
 class App extends Pack.Component {
-
-  constructor() {
-    super();
-    this.state = {
-      pathname: window.location.pathname
-    }
-    this.updatePathname = this.updatePathname.bind(this);
-  }
-
-  updatePathname(pathname) {
-    this.setState({pathname: pathname});
-  }
-
   render() {
     return (
       <Pack.BrowserRouter>
         <application id="App">
-          {this.state.pathname !== '/login' ? (<Comp.Nav />) : null}
-          <Comp.HandleFbRedirect updatePathname={this.updatePathname} />
+          <Comp.HandleFbRedirect />
           <Pack.Route path="/login" component={Page.Login} />
           <Pack.Route exact path="/" component={Page.Home} />
         </application>

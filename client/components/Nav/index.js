@@ -58,8 +58,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   setVerses: Rdux.setVerses,
-  setNavIndex: Rdux.setNavIndex,
-  setSwipeIndex: Rdux.setSwipeIndex,
   openModal: Rdux.openModal,
   closeModal: Rdux.closeModal
 }
