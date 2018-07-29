@@ -1,5 +1,4 @@
 export default function editItem(item) {
-  window.navigator.vibrate(10);
   this.props.openModal(item.type, item);
   let newState = Object.assign({}, this.state);
   newState.options = {

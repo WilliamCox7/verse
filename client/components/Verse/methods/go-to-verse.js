@@ -1,6 +1,7 @@
 import * as Pack from '../../../exports/packages';
 
 export default function goToVerse(item) {
+  window.navigator.vibrate(10);
   let saveVerse = this.props.scripture.verses[this.props.scripture.index];
   addToBackStack(saveVerse);
   Pack.axios.get(`/verses/${item.work}/${item.book}/${item.chap}/${item.vers}/${this.props.user.userId}`)

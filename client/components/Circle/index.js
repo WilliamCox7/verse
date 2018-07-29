@@ -30,6 +30,7 @@ class Circle extends Pack.Component {
           <span>{letter}</span>
         )}
         <div className="title">{title}</div>
+        <div className="overlay"></div>
       </component>
     );
   }
