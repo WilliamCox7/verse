@@ -43,6 +43,7 @@ class Verse extends Pack.Component {
     let contextItem, linkItems, prophetItems, rulerItems, militaryItems, personItems, timelineItem, commentItems;
 
     let items = this.props.verse.items;
+    let test = items;
     if (items) {
       contextItem = items.find((item) => item.type === 'context');
       linkItems = items.filter((item) => item.type === 'link');
@@ -274,15 +275,12 @@ const hold = Pack.defineHold({holdFor: 500});
 
 const mapStateToProps = (state) => {
   return {
-    scripture: state.scripture,
     user: state.user
   }
 }
 
 const mapDispatchToProps = {
-  setVerses: Rdux.setVerses,
-  openModal: Rdux.openModal,
-  delAddition: Rdux.delAddition
+  openModal: Rdux.openModal
 }
 
 export default Pack.connect(mapStateToProps, mapDispatchToProps)(Verse);

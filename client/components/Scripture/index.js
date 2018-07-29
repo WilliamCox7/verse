@@ -1,6 +1,5 @@
 import React from 'react';
 import * as Pack from '../../exports/packages';
-import * as Rdux from '../../exports/reducers';
 import * as Comp from '../../exports/components';
 import * as Meth from './methods';
 import './style.scss';
@@ -15,7 +14,7 @@ class Scripture extends Pack.Component {
   render() {
 
     let verses = this.props.scripture.verses.map((verse, i) => {
-      return <Comp.Verse verse={verse} key={i} />;
+      return <Comp.Verse verse={verse} key={i} delAddition={this.props.delAddition} setVerses={this.props.setVerses} scripture={this.props.scripture} />;
     });
 
     return (
@@ -34,16 +33,8 @@ Scripture.prototype.changeIndex = Meth.changeIndex;
 
 const mapStateToProps = (state) => {
   return {
-    scripture: state.scripture,
     user: state.user
   }
 }
 
-const mapDispatchToProps = {
-  addScriptureToEnd: Rdux.addScriptureToEnd,
-  addScriptureToStart: Rdux.addScriptureToStart,
-  setReference: Rdux.setReference,
-  setIndex: Rdux.setIndex
-}
-
-export default Pack.connect(mapStateToProps, mapDispatchToProps)(Scripture);
+export default Pack.connect(mapStateToProps)(Scripture);

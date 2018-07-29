@@ -3,7 +3,7 @@ export default function hideMenu() {
     let navRef = document.getElementById('nav-ref');
     let navBack = document.getElementById('nav-back');
     let navAdd = document.getElementById('nav-add');
-    let home = document.getElementById('Home');
+    let home = document.getElementById('home-wrapper');
     navRef.style.filter = '';
     navBack.style.filter = '';
     navAdd.style.filter = '';

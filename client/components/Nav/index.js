@@ -32,9 +32,11 @@ class Nav extends Pack.Component {
           <div id="nav-add" className="add flex jc-fe ai-c" onClick={this.showMenu}>
             <i className="material-icons">add</i>
           </div>
-          <Comp.Menu show={this.state.showMenu} hideMenu={this.hideMenu} openModal={this.openModal} />
+          <Comp.Menu show={this.state.showMenu} hideMenu={this.hideMenu} openModal={this.openModal} scripture={this.props.scripture} />
           {this.props.nav.showModal ? (
-            <Comp.Modal type={this.props.nav.modalType} closeModal={this.props.closeModal} item={this.props.nav.item} />
+            <Comp.Modal type={this.props.nav.modalType} closeModal={this.props.closeModal} item={this.props.nav.item}
+              updAddition={this.props.updAddition} addAddition={this.props.addAddition} setItem={this.setItem}
+              scripture={this.props.scripture} />
           ) : null}
         </div>
       </div>
@@ -50,14 +52,12 @@ Nav.prototype.goBack = Meth.goBack;
 
 const mapStateToProps = (state) => {
   return {
-    scripture: state.scripture,
     nav: state.nav,
     user: state.user
   }
 }
 
 const mapDispatchToProps = {
-  setVerses: Rdux.setVerses,
   openModal: Rdux.openModal,
   closeModal: Rdux.closeModal
 }

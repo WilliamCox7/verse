@@ -3,7 +3,7 @@ import root from './root';
 
 export const store = Pack.createStore(
   root, Pack.compose(
-    Pack.applyMiddleware(Pack.thunk),
+    Pack.applyMiddleware(Pack.logger, Pack.thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 );

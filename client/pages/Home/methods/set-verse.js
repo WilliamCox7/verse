@@ -14,7 +14,7 @@ export default function setVerse(o, index) {
       response.data.forEach((verse) => {
         indices.push(verse);
       });
-      this.props.setVerses(indices);
+      this.setVerses(indices);
     }).catch((err) => {
       console.log(err);
     });

@@ -1,6 +1,5 @@
 import React from 'react';
 import * as Pack from '../../exports/packages';
-import * as Rdux from '../../exports/reducers';
 import { Context, Person, Link, SelectPerson, Timeline, Comment } from './forms';
 import './style.scss';
 
@@ -89,15 +88,8 @@ class Modal extends Pack.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
-    scripture: state.scripture
+    user: state.user
   }
 }
 
-const mapDispatchToProps = {
-  addAddition: Rdux.addAddition,
-  updAddition: Rdux.updAddition,
-  setItem: Rdux.setItem
-}
-
-export default Pack.connect(mapStateToProps, mapDispatchToProps)(Modal);
+export default Pack.connect(mapStateToProps)(Modal);

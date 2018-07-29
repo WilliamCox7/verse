@@ -1,7 +1,6 @@
 import React from 'react';
 import * as Pack from '../../exports/packages';
 import * as Comp from '../../exports/components';
-import * as Rdux from '../../exports/reducers';
 import * as Meth from './methods';
 import { buildOptionsFor } from '../../modules';
 import './style.scss';
@@ -19,7 +18,11 @@ class Home extends Pack.Component {
       y: undefined,
       pullingDisabled: false,
       navIndex: 0,
-      viewIndex: 0
+      viewIndex: 0,
+      verses: [],
+      abrString: "Gen 1:1",
+      refId: undefined,
+      index: 101
     }
     this.changeIndex = this.changeIndex.bind(this);
     this.changeIndexFromSpan = this.changeIndexFromSpan.bind(this);
@@ -32,6 +35,14 @@ class Home extends Pack.Component {
     this.updateViewIndex = this.updateViewIndex.bind(this);
     this.setVerse = this.setVerse.bind(this);
     this.buildOptionsFor = this.buildOptionsFor.bind(this);
+    this.addAddition = this.addAddition.bind(this);
+    this.addScriptureToEnd = this.addScriptureToEnd.bind(this);
+    this.addScriptureToStart = this.addScriptureToStart.bind(this);
+    this.delAddition = this.delAddition.bind(this);
+    this.setIndex = this.setIndex.bind(this);
+    this.setReference = this.setReference.bind(this);
+    this.setVerses = this.setVerses.bind(this);
+    this.updAddition = this.updAddition.bind(this);
   }
 
   componentDidMount() {
@@ -45,7 +56,7 @@ class Home extends Pack.Component {
       response.data.forEach((verse) => {
         indices.push(verse);
       });
-      this.props.setVerses(indices);
+      this.setVerses(indices);
     });
   }
 
@@ -60,8 +71,10 @@ class Home extends Pack.Component {
 
     return (
       <page id="Home">
-        <Comp.Nav viewIndex={this.state.viewIndex} updateNavIndex={this.updateNavIndex} updateViewIndex={this.updateViewIndex} />
-        <div className="flex jc-c">
+        <Comp.Nav viewIndex={this.state.viewIndex} updateNavIndex={this.updateNavIndex} updateViewIndex={this.updateViewIndex}
+          setVerses={this.setVerses} updAddition={this.updAddition} addAddition={this.addAddition} setItem={this.setItem}
+          scripture={this.state} />
+        <div id="home-wrapper" className="flex jc-c">
           <Pack.SwipeableViews style={style} index={this.state.viewIndex} onChangeIndex={(index) => this.setVerse(options, index)}>
             <div>
               <div className="search-ref flex jc-sb">
@@ -84,7 +97,8 @@ class Home extends Pack.Component {
                   onTouchMove={this.updatePullingIndex} onTouchEnd={this.stopPulling}>{options.verses.spans}</div>
               </Pack.SwipeableViews>
             </div>
-            <Comp.Scripture />
+            <Comp.Scripture addScriptureToEnd={this.addScriptureToEnd} addScriptureToStart={this.addScriptureToStart} delAddition={this.delAddition}
+              setIndex={this.setIndex} setReference={this.setReference} setVerses={this.setVerses} scripture={this.state} />
           </Pack.SwipeableViews>
         </div>
       </page>
@@ -103,16 +117,19 @@ Home.prototype.updateNavIndex = Meth.updateNavIndex;
 Home.prototype.updateViewIndex = Meth.updateViewIndex;
 Home.prototype.setVerse = Meth.setVerse;
 Home.prototype.buildOptionsFor = buildOptionsFor;
+Home.prototype.addAddition = Meth.addAddition;
+Home.prototype.addScriptureToEnd = Meth.addScriptureToEnd;
+Home.prototype.addScriptureToStart = Meth.addScriptureToStart;
+Home.prototype.delAddition = Meth.delAddition;
+Home.prototype.setIndex = Meth.setIndex;
+Home.prototype.setReference = Meth.setReference;
+Home.prototype.setVerses = Meth.setVerses;
+Home.prototype.updAddition = Meth.updAddition;
 
 const mapStateToProps = (state) => {
   return {
-    scripture: state.scripture,
     user: state.user
   }
 }
 
-const mapDispatchToProps = {
-  setVerses: Rdux.setVerses
-}
-
-export default Pack.connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Pack.connect(mapStateToProps)(Home);

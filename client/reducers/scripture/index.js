@@ -1,5 +1,4 @@
 const SET = 'scripture/SET';
-const ADD_COM = 'scripture/ADD_COM';
 const ADD_END = 'scripture/ADD_END';
 const ADD_STT = 'scripture/ADD_STT';
 const SET_REF = 'scripture/SET_REF';
@@ -12,8 +11,7 @@ const initState = {
   abrString: 'Gen 1:1',
   refId: undefined,
   index: 101,
-  verses: [],
-  comments: []
+  verses: []
 }
 
 /**
@@ -85,10 +83,6 @@ export default function reducer(state=initState, action) {
       editState.index = action.payload;
       return Object.assign({}, state, editState);
 
-    case ADD_COM:
-      editState.comments.unshift(action.payload);
-      return Object.assign({}, state, editState);
-
     default: return state;
 
   }
@@ -103,18 +97,6 @@ export function setVerses(verses) {
   return {
     type: SET,
     payload: verses
-  }
-}
-
-/**
- * @method addComment adds comment to display of comments
- * @param {object} comment contains all things pertaining to the new comment
- */
-
-export function addComment(comment) {
-  return {
-    type: ADD_COM,
-    payload: comment
   }
 }
 

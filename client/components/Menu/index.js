@@ -64,8 +64,7 @@ Menu.prototype.hasItem = Meth.hasItem;
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
-    scripture: state.scripture
+    user: state.user
   }
 }
 
