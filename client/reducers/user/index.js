@@ -2,7 +2,8 @@ const SET = 'user/SET';
 
 const initState = {
   url: null,
-  userId: null
+  userId: null,
+  isIpad: navigator.userAgent.indexOf('iPad') > -1
 }
 
 /**
