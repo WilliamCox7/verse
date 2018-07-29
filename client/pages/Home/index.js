@@ -72,8 +72,7 @@ class Home extends Pack.Component {
     return (
       <page id="Home">
         <Comp.Nav viewIndex={this.state.viewIndex} updateNavIndex={this.updateNavIndex} updateViewIndex={this.updateViewIndex}
-          setVerses={this.setVerses} updAddition={this.updAddition} addAddition={this.addAddition} setItem={this.setItem}
-          scripture={this.state} />
+          setVerses={this.setVerses} updAddition={this.updAddition} addAddition={this.addAddition} scripture={this.state} />
         <div id="home-wrapper" className="flex jc-c">
           <Pack.SwipeableViews style={style} index={this.state.viewIndex} onChangeIndex={(index) => this.setVerse(options, index)}>
             <div>

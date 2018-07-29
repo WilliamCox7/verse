@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Pack from '../../exports/packages';
+import * as Rdux from '../../exports/reducers';
 import { Context, Person, Link, SelectPerson, Timeline, Comment } from './forms';
 import './style.scss';
 
@@ -92,4 +93,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default Pack.connect(mapStateToProps)(Modal);
+const mapDispatchToProps = {
+  setItem: Rdux.setItem
+}
+
+export default Pack.connect(mapStateToProps, mapDispatchToProps)(Modal);
