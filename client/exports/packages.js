@@ -8,12 +8,11 @@ import axios from 'axios';
 import SwipeableViews from 'react-swipeable-views';
 import autosize from 'autosize';
 import { Holdable, defineHold } from 'react-touch';
-import logger from 'redux-logger';
 
 export {
   React, Component, connect, Provider,
   combineReducers, createStore, applyMiddleware, compose,
   ReactDOM, BrowserRouter, Route, Link,
   withRouter, thunk, axios, SwipeableViews,
-  autosize, Holdable, defineHold, logger
+  autosize, Holdable, defineHold
 }

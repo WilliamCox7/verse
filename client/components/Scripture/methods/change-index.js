@@ -11,6 +11,5 @@ export default function changeIndex(index) {
       this.props.addScriptureToEnd(response.data);
     });
   }
-  this.props.setReference(verses[index]);
-  this.props.setIndex(index);
+  this.props.setReference(verses[index], index);
 }

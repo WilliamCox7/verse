@@ -6,6 +6,9 @@ html {
 
 body {
   background: $gray-5;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
 }
 
 textarea {

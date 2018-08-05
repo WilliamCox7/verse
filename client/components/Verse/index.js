@@ -31,10 +31,10 @@ class Verse extends Pack.Component {
   }
 
   componentDidMount() {
-    let windowHeight = window.screen.height;
+    let windowHeight = window.innerHeight;
     let scrollWindow = document.getElementById('scroll-window');
     let scrollWindowY = scrollWindow.getBoundingClientRect().y;
-    let scrollWindowHeight = windowHeight - scrollWindowY;
+    let scrollWindowHeight = windowHeight - scrollWindowY - 20;
     scrollWindow.style.height = scrollWindowHeight + 'px';
   }
 
@@ -227,6 +227,7 @@ class Verse extends Pack.Component {
             <div>
               <div className="comment-circle">
                 <img src={this.props.user.url} />
+                <div className="overlay"></div>
               </div>
               <h1 className="title">comment</h1>
             </div>
