@@ -29,9 +29,11 @@ class InputSelect extends Pack.Component {
     return (
       <component className="InputSelect">
         <input type="text" value={this.state.selected} placeholder={this.props.placeholder} onChange={this.updateOptions} />
-        <div className="options">
-          {options}
-        </div>
+        {this.state.options.length ? (
+          <div className="options">
+            {options}
+          </div>
+        ) : null}
       </component>
     );
   }

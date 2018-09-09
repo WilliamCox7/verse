@@ -25,6 +25,11 @@ module.exports = (body, table) => new Promise((resolve, reject) => {
       body.personId = ObjectId(body.personId);
     }
 
+    if (table === 'person') {
+      body.children = body.children.map((childId) => ObjectId(childId));
+      body.wives = body.wives.map((wifeId) => ObjectId(wifeId));
+    }
+
     mongoClient.connect(mongoURI, (err, db) => {
 
       if (id) {

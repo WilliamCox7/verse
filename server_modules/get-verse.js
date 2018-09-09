@@ -73,6 +73,41 @@ function getScriptureContentsForItem(iter, item, db, items) {
       items.push(item);
       return iterate(iter, getScriptureContentsForItem, db, items);
     });
+  } else if (item.type === 'person') {
+    let promises = [];
+    if (item.mother) {
+      promises.push(
+        db.collection('person').find({ _id: item.mother }).toArray()
+        .then((person) => item.mother = person)
+      );
+    }
+    if (item.father) {
+      promises.push(
+        db.collection('person').find({ _id: item.father }).toArray()
+        .then((person) => item.father = person)
+      );
+    }
+    if (item.children.length) {
+      item.children.forEach((child, i) => {
+        promises.push(
+          db.collection('person').find({ _id: child }).toArray()
+          .then((person) => item.children[i] = person[0])
+        );
+      });
+    }
+    if (item.wives.length) {
+      item.wives.forEach((wife, i) => {
+        promises.push(
+          db.collection('person').find({ _id: wife }).toArray()
+          .then((person) => item.wives[i] = person[0])
+        );
+      });
+    }
+    return Promise.all(promises)
+    .then(() => {
+      items.push(item);
+      return iterate(iter, getScriptureContentsForItem, db, items);
+    });
   } else {
     items.push(item);
     return iterate(iter, getScriptureContentsForItem, db, items);

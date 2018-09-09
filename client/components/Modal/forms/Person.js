@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Pack from '../../../exports/packages';
+import * as Comp from '../../../exports/components';
 
 class Person extends Pack.Component {
 
@@ -23,21 +24,25 @@ class Person extends Pack.Component {
     }
     this.save = this.save.bind(this);
     this.update = this.update.bind(this);
-    this.updateArray = this.updateArray.bind(this);
+    this.updateSelectPerson = this.updateSelectPerson.bind(this);
     this.addToArray = this.addToArray.bind(this);
     this.removeFromArray = this.removeFromArray.bind(this);
     this.updateCheckbox = this.updateCheckbox.bind(this);
   }
 
-  update(e) {
+  updateSelectPerson(item, name, array, index) {
     let newState = Object.assign({}, this.state);
-    newState[e.target.name] = e.target.value;
+    if (array) {
+      newState[array][index] = item;
+    } else {
+      newState[name] = item;
+    }
     this.setState(newState);
   }
 
-  updateArray(e, index, array) {
+  update(e) {
     let newState = Object.assign({}, this.state);
-    newState[array][index] = e.target.value;
+    newState[e.target.name] = e.target.value;
     this.setState(newState);
   }
 
@@ -62,6 +67,8 @@ class Person extends Pack.Component {
   save() {
     let saveState = Object.assign({}, this.state);
     delete saveState.showCheckbox;
+    saveState.children = saveState.children.map((child) => child._id);
+    saveState.wives = saveState.wives.map((wife) => wife._id);
     this.props.save(saveState, 'person');
   }
 
@@ -70,7 +77,7 @@ class Person extends Pack.Component {
     let children = this.state.children.map((child, i) => {
       return (
         <div className="flex" key={i}>
-          <input placeholder="child" value={child} onChange={(e) => this.updateArray(e, i, "children")} />
+          <Comp.InputSelect update={this.updateSelectPerson} placeholder="child" name="children" item={this.state.children[i]} index={i} array="children" />
           {i === 0 ? (
             <button className="add-button" onClick={() => this.addToArray("children")}><h1>+</h1></button>
           ) : (
@@ -83,7 +90,7 @@ class Person extends Pack.Component {
     let wives = this.state.wives.map((wife, i) => {
       return (
         <div className="flex" key={i}>
-          <input placeholder="wife" value={wife} onChange={(e) => this.updateArray(e, i, "wives")} />
+          <Comp.InputSelect update={this.updateSelectPerson} placeholder="wife" name="wives" item={this.state.wives[i]} index={i} array="wives" />
           {i === 0 ? (
             <button className="add-button" onClick={() => this.addToArray("wives")}><h1>+</h1></button>
           ) : (
@@ -104,8 +111,8 @@ class Person extends Pack.Component {
         </div>
         <input placeholder="content" value={this.state.content} name="content" onChange={this.update} />
         <div className="space"></div>
-        <input placeholder="mother" value={this.state.mother} name="mother" onChange={this.update} />
-        <input placeholder="father" value={this.state.father} name="father" onChange={this.update} />
+        <Comp.InputSelect update={this.updateSelectPerson} placeholder="mother" name="mother" item={this.state.mother} />
+        <Comp.InputSelect update={this.updateSelectPerson} placeholder="father" name="father" item={this.state.father} />
         <div className="children">{children}</div>
         <div className="space"></div>
         <div className="wives">{wives}</div>
