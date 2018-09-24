@@ -210,7 +210,7 @@ class Verse extends Pack.Component {
     }
 
     if (commentItems && commentItems.length) {
-      dirSwitch = !dirSwitch;
+      dirSwitch = !dirSwitch || !this.state.showInfo;
       className = `item-wrapper flex ${dirSwitch ? null : 'fd-rr'}`;
       items = commentItems.map((commentItem, i) => {
         return (
@@ -220,7 +220,7 @@ class Verse extends Pack.Component {
       })
       comment = (
         <div className={className}>
-          <div className={`items-wrapper flex ${dirSwitch ? 'right' : 'left'}`}>
+          <div className={`items-wrapper flex fw-w ${dirSwitch || !this.state.showInfo ? 'right' : 'left'}`}>
             {items}
           </div>
           <Pack.Holdable config={hold} onHoldComplete={() => this.toggleOptions('comment')}>

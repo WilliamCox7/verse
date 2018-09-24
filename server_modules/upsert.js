@@ -21,11 +21,11 @@ module.exports = (body, table) => new Promise((resolve, reject) => {
       delete body.content;
     }
 
-    if (table === 'military' || table === 'prophet' || table === 'ruler') {
+    if (table === 'military' || table === 'prophet' || table === 'ruler' || table === 'person') {
       body.personId = ObjectId(body.personId);
     }
 
-    if (table === 'person') {
+    if (table === 'newperson') {
       body.children = body.children.map((childId) => ObjectId(childId));
       body.wives = body.wives.map((wifeId) => ObjectId(wifeId));
     }
@@ -41,7 +41,8 @@ module.exports = (body, table) => new Promise((resolve, reject) => {
           if (err) reject(err);
           resolve(result);
         });
-      } else {
+      } else if (table !== 'person') {
+        if (table === 'newperson') table = 'person';
         let response = {};
         db.collection(table).insert(body, (err, result) => {
           if (err) reject(err);
@@ -65,8 +66,19 @@ module.exports = (body, table) => new Promise((resolve, reject) => {
             resolve(result);
           }
         });
+      } else {
+        let response = {};
+        db.collection('map').insert({
+          refId: refId,
+          userId: userId,
+          table: table,
+          tableId: body.personId
+        }, (err, result) => {
+          if (err) reject(err);
+          response.mapId = result.ops[0]._id;
+          resolve(response);
+        });
       }
-
     });
 
   } catch(err) {

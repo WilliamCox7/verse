@@ -38,6 +38,7 @@
           position: absolute;
           right: 70px;
           font-size: 10px;
+          white-space: nowrap;
           @media(min-width: 768px) {
             right: 90px;
             font-size: 13px;

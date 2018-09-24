@@ -17,21 +17,23 @@ class Modal extends Pack.Component {
   }
 
   buildForm(type) {
+    let prev = this.props.scripture.verses[this.props.scripture.index-1];
     switch(type) {
-      case 'context': return <Context save={this.save} error={this.error} item={this.props.item} />;
-      case 'person': return <Person save={this.save} error={this.error} item={this.props.item} />;
+      case 'context': return <Context save={this.save} error={this.error} item={this.props.item} prev={prev} />;
+      case 'newperson': return <Person save={this.save} error={this.error} item={this.props.item} />;
+      case 'person': return <SelectPerson save={this.save} type={type} error={this.error} item={this.props.item} />;
       case 'link': return <Link save={this.save} error={this.error} item={this.props.item} />;
       case 'military': return <SelectPerson save={this.save} type={type} error={this.error} item={this.props.item} />;
       case 'prophet': return <SelectPerson save={this.save} type={type} error={this.error} item={this.props.item} />;
       case 'ruler': return <SelectPerson save={this.save} type={type} error={this.error} item={this.props.item} />;
-      case 'timeline': return <Timeline save={this.save} error={this.error} item={this.props.item} />;
+      case 'timeline': return <Timeline save={this.save} error={this.error} item={this.props.item} prev={prev} />;
       case 'comment': return <Comment save={this.save} error={this.error} item={this.props.item} />;
     }
   }
 
   save(form, table) {
     let toSave = {};
-    if (table === 'military' || table === 'ruler' || table === 'prophet') {
+    if (table === 'military' || table === 'ruler' || table === 'prophet' || table === 'person') {
       toSave.personId = form[table]._id;
       toSave.type = table;
       toSave._id = form._id;
@@ -44,7 +46,7 @@ class Modal extends Pack.Component {
     .then((response) => {
       this.setState({error: ""}, () => {
         this.props.closeModal();
-        if (table === 'military' || table === 'ruler' || table === 'prophet') {
+        if (table === 'military' || table === 'ruler' || table === 'prophet' || table === 'person') {
           toSave = Object.assign({}, form[table], toSave);
         }
         if (response.data.nModified) {

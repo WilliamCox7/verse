@@ -23,6 +23,10 @@ class Menu extends Pack.Component {
                 <h1>context</h1>
               </div>
             ) : null}
+            <div className="menu-button flex jc-c ai-c" onClick={() => this.props.openModal('newperson')}>
+              <Comp.Circle image="newperson" />
+              <h1>new person</h1>
+            </div>
             <div className="menu-button flex jc-c ai-c" onClick={() => this.props.openModal('person')}>
               <Comp.Circle image="geneology" />
               <h1>person</h1>

@@ -12,9 +12,10 @@ class Context extends Pack.Component {
     }
     this.save = this.save.bind(this);
     this.update = this.update.bind(this);
+    this.loadPrevious = this.loadPrevious.bind(this);
   }
 
-  ComponentDidMount() {
+  componentDidMount() {
     let textareas = document.querySelectorAll("textarea.autosize");
     textareas.forEach((textarea) => {
       Pack.autosize(textarea);
@@ -25,6 +26,11 @@ class Context extends Pack.Component {
     let newState = Object.assign({}, this.state);
     newState[e.target.name] = e.target.value;
     this.setState(newState);
+  }
+
+  loadPrevious() {
+    let prev = this.props.prev.items.find((item) => item.type === 'context');
+    this.setState({context: prev.context});
   }
 
   save() {
@@ -39,6 +45,7 @@ class Context extends Pack.Component {
     return (
       <div className="form">
         <textarea className="autosize" placeholder="context" value={this.state.context} name="context" onChange={this.update}></textarea>
+        <button onClick={this.loadPrevious}>load previous</button>
         <button onClick={this.save}>save</button>
       </div>
     );

@@ -20,7 +20,7 @@ class Person extends Pack.Component {
       dontSaveToScripture: props.item ? props.item.dontSaveToScripture : false,
       showCheckbox: props.item ? false : true,
       _id: props.item && props.item._id ? props.item._id : "",
-      type: props.item && props.item.type ? props.item.type : 'person'
+      type: props.item && props.item.type ? props.item.type : 'newperson'
     }
     this.save = this.save.bind(this);
     this.update = this.update.bind(this);
@@ -69,7 +69,7 @@ class Person extends Pack.Component {
     delete saveState.showCheckbox;
     saveState.children = saveState.children.map((child) => child._id);
     saveState.wives = saveState.wives.map((wife) => wife._id);
-    this.props.save(saveState, 'person');
+    this.props.save(saveState, 'newperson');
   }
 
   render() {
@@ -105,9 +105,15 @@ class Person extends Pack.Component {
         <input placeholder="name" value={this.state.name} name="name" onChange={this.update} />
         <div className="flex">
           <input className="left-outside" placeholder="start" value={this.state.start} name="start" onChange={this.update} />
-          <input className="inside" placeholder="startExt" value={this.state.startExt} name="startExt" onChange={this.update} />
+          <select className="inside" value={this.state.startExt} name="startExt" onChange={this.update}>
+            <option>B.C.</option>
+            <option>A.D.</option>
+          </select>
           <input className="inside" placeholder="end" value={this.state.end} name="end" onChange={this.update} />
-          <input className="right-outside" placeholder="endExt" value={this.state.endExt} name="endExt" onChange={this.update} />
+          <select className="right-outside" value={this.state.endExt} name="endExt" onChange={this.update}>
+            <option>B.C.</option>
+            <option>A.D.</option>
+          </select>
         </div>
         <input placeholder="content" value={this.state.content} name="content" onChange={this.update} />
         <div className="space"></div>
